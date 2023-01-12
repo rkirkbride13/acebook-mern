@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PostForm = () => {
+const PostForm = ({navigate}) => {
   const [postContent, setPostContent] = useState("");
 
   const handleSubmit = async (e) => {
@@ -14,13 +14,13 @@ const PostForm = () => {
       body: JSON.stringify({ message: postContent })
     })
     
-    // if (response.status !== 201) {
-    //   navigate("/login");
-    // } else {
-    //   let data = await response.json()
-    //   window.localStorage.setItem("token", data.token)
-    //   navigate("/posts");
-    // }
+    if (response.status !== 201) {
+      navigate("/login");
+    } else {
+      let data = await response.json()
+      window.localStorage.setItem("token", data.token)
+      navigate("/posts");
+    }
   };
 
   const handlePostChange = (e) => {

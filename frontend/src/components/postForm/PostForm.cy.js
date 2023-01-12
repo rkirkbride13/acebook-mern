@@ -11,12 +11,12 @@ describe("Postform", () => {
   it("can create a POST request to /posts", () => {
     cy.mount(<PostForm />)
 
-    cy.intercept('POST', '/posts', { message: "Created post." }).as("createPostRequest")
+    cy.intercept('POST', '/posts', { message: "OK" }).as("createPostRequest")
 
     cy.get("#postContent").type("Making a post");    
     cy.get("#submitButton").click();
     cy.wait('@createPostRequest').then( interception => {
-      expect(interception.response.body.message).to.eq("Created post.")
+      expect(interception.response.body.message).to.eq("OK")
     })
   })
 })
