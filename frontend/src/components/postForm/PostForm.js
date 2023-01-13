@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './PostForm.css'
 
 const PostForm = () => {
   const [postContent, setPostContent] = useState("");
@@ -39,7 +40,7 @@ const PostForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Create a new post</label>
-        <input id="postContent" type='text' value={ postContent } onChange={handlePostChange} />
+        <textarea id="postContent" type='text' value={ postContent } onChange={handlePostChange} />
         <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Create Post</button>
       </form>
     </div>
