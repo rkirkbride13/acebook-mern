@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Post from '../post/Post'
-import PostForm from '../postForm/PostForm';
-
+import React, { useEffect, useState } from "react";
+import Post from "../post/Post";
+import PostForm from "../postForm/PostForm";
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
@@ -11,41 +10,37 @@ const Feed = ({ navigate }) => {
     if (token) {
       fetch("/posts", {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-        .then(response => response.json())
-        .then(async data => {
-          window.localStorage.setItem("token", data.token)
-          setToken(window.localStorage.getItem("token"))
+        .then((response) => response.json())
+        .then(async (data) => {
+          window.localStorage.setItem("token", data.token);
+          setToken(window.localStorage.getItem("token"));
           setPosts(data.posts);
-        })
+        });
     }
-  }, [])
+  }, []);
 
   const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
+    window.localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   if (token) {
     return (
       <>
         <h2>Posts</h2>
-        <button onClick={logout}>
-          Logout
-        </button>
-        <div id='feed' role="feed">
-          {posts.map(
-            (post) => (<Post post={post} key={post._id} />)
-          )}
+        <button onClick={logout}>Logout</button>
+        <div data-cy="feed" id="feed" role="feed">
+          {posts.map((post) => <Post post={post} key={post._id} />).reverse()}
         </div>
-        <PostForm setPosts={setPosts} token={token} setToken={setToken}/>
+        <PostForm setPosts={setPosts} token={token} setToken={setToken} />
       </>
-    )
+    );
   } else {
-    navigate('/signin')
+    navigate("/signin");
   }
-}
+};
 
 export default Feed;
