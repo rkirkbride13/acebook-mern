@@ -16,6 +16,7 @@ const Feed = ({ navigate }) => {
       })
         .then(response => response.json())
         .then(async data => {
+          console.log("Reload page")
           window.localStorage.setItem("token", data.token)
           setToken(window.localStorage.getItem("token"))
           setPosts(data.posts);
@@ -41,7 +42,7 @@ const Feed = ({ navigate }) => {
                 (post) => ( <Post post={ post } key={ post._id } /> )
               )}
           </div>
-          <div><PostForm /></div>
+          <PostForm />
         </>
       )
     } else {

@@ -1,6 +1,6 @@
 import PostForm from './PostForm'
 
-// const navigate = () => {}
+const navigate = () => {}
 
 describe("Postform", () => {
   it('renders a post form', () => {
@@ -9,8 +9,9 @@ describe("Postform", () => {
   })
 
   it("can create a POST request to /posts", () => {
-    cy.mount(<PostForm />)
-
+    // cy.mount(<PostForm />)
+    cy.mount(<PostForm navigate={navigate}/>);
+    
     cy.intercept('POST', '/posts', { message: "OK" }).as("createPostRequest")
 
     cy.get("#postContent").type("Making a post");    
@@ -21,4 +22,3 @@ describe("Postform", () => {
   })
 })
 
-// cy.mount(<PostForm navigate={navigate}/>);

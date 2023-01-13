@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const PostForm = ({navigate}) => {
+const PostForm = () => {
   const [postContent, setPostContent] = useState("");
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -10,16 +11,23 @@ const PostForm = ({navigate}) => {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ message: postContent })
     })
+
+    let data = await response.json()
     
     if (response.status !== 201) {
-      navigate("/login");
+      console.log("post NOT added")
+      // navigate("/login");
     } else {
-      let data = await response.json()
+      console.log("post added")
       window.localStorage.setItem("token", data.token)
-      navigate("/posts");
+      setToken(window.localStorage.getItem("token"))
+      setPostContent("")
+      // navigate("/posts")
+      // window.localStorage.setItem("token", data.token);
     }
   };
 
@@ -31,15 +39,8 @@ const PostForm = ({navigate}) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Create a new post</label>
-        <input onChange={handlePostChange} id="postContent"></input>
-        <button
-          type="submit"
-          value="Submit"
-          data-cy="submitButton"
-          id="submitButton"
-        >
-          Create Post
-        </button>
+        <input id="postContent" type='text' value={ postContent } onChange={handlePostChange} />
+        <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Create Post</button>
       </form>
     </div>
   );
