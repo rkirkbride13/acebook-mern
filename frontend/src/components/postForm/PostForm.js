@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import './PostForm.css'
 
-const PostForm = () => {
+const PostForm = ({posts, setPosts, token, setToken}) => {
   const [postContent, setPostContent] = useState("");
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  // const [token, setToken] = useState(window.localStorage.getItem("token"));
+  // const [posts, setPosts] = useState([]);
 
+  
+  // console.log(navigate)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,9 +30,22 @@ const PostForm = () => {
       window.localStorage.setItem("token", data.token)
       setToken(window.localStorage.getItem("token"))
       setPostContent("")
-      // navigate("/posts")
-      // window.localStorage.setItem("token", data.token);
     }
+
+    if (token) {
+      fetch("/posts", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => response.json())
+        .then(async data => {
+          window.localStorage.setItem("token", data.token)
+          setToken(window.localStorage.getItem("token"))
+          setPosts(data.posts);
+        })
+    }
+    
   };
 
   const handlePostChange = (e) => {
