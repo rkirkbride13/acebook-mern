@@ -23,10 +23,6 @@ const Feed = ({ navigate }) => {
     }
   }, [])
 
-
-
-
-
   const logout = () => {
     window.localStorage.removeItem("token")
     navigate('/login')
@@ -44,7 +40,7 @@ const Feed = ({ navigate }) => {
             (post) => (<Post post={post} key={post._id} />)
           )}
         </div>
-        <PostForm posts={posts} setPosts={setPosts} token={token} setToken={setToken}/>
+        <PostForm setPosts={setPosts} token={token} setToken={setToken}/>
       </>
     )
   } else {

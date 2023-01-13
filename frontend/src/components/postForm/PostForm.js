@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import './PostForm.css'
 
-const PostForm = ({posts, setPosts, token, setToken}) => {
+const PostForm = ({ setPosts, token, setToken }) => {
   const [postContent, setPostContent] = useState("");
-  // const [token, setToken] = useState(window.localStorage.getItem("token"));
-  // const [posts, setPosts] = useState([]);
 
-  
-  // console.log(navigate)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,33 +17,35 @@ const PostForm = ({posts, setPosts, token, setToken}) => {
     })
 
     let data = await response.json()
-    
+
     if (response.status !== 201) {
       console.log("post NOT added")
-      // navigate("/login");
+
     } else {
       console.log("post added")
       window.localStorage.setItem("token", data.token)
       setToken(window.localStorage.getItem("token"))
       setPostContent("")
-    }
 
-    if (token) {
-      fetch("/posts", {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(response => response.json())
-        .then(async data => {
-          window.localStorage.setItem("token", data.token)
-          setToken(window.localStorage.getItem("token"))
-          setPosts(data.posts);
+      // State passed from feed used to update all posts on Feed.js
+      if (token) {
+        fetch("/posts", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         })
+          .then(response => response.json())
+          .then(async data => {
+            window.localStorage.setItem("token", data.token)
+            setToken(window.localStorage.getItem("token"))
+            setPosts(data.posts);
+          })
+      }
     }
-    
-  };
 
+
+  };
+  //handler function to call POST method to create new Post
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
@@ -56,7 +54,7 @@ const PostForm = ({posts, setPosts, token, setToken}) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Create a new post</label>
-        <textarea id="postContent" type='text' value={ postContent } onChange={handlePostChange} />
+        <textarea maxLength="175" placeHolder="Write your post here..." id="postContent" type='text' value={postContent} onChange={handlePostChange} />
         <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Create Post</button>
       </form>
     </div>

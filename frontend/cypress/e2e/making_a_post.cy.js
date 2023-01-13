@@ -9,8 +9,7 @@ describe("Creating post", () => {
     cy.visit("/posts");
     cy.get("#postContent").type("e2e test post");
     cy.get("#submitButton").click();
-    cy.visit("/posts");
-
-    cy.get('#feed').should('contains.text', "e2e test post")
+    
+    cy.get('#feed').should('contains.text', "e2e test post");
   })
 })
