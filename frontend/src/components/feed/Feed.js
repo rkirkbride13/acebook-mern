@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
+import PostForm from "../postForm/PostForm";
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
@@ -34,6 +35,7 @@ const Feed = ({ navigate }) => {
         <div data-cy="feed" id="feed" role="feed">
           {posts.map((post) => <Post post={post} key={post._id} />).reverse()}
         </div>
+        <PostForm setPosts={setPosts} token={token} setToken={setToken} />
       </>
     );
   } else {
