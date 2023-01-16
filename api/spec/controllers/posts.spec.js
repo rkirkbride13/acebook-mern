@@ -165,4 +165,30 @@ describe("/posts", () => {
       expect(messages[1][1]).not.toEqual(undefined);
     });
   });
+
+  describe("DELETE, when post is no longer wanted", () => {
+    test("delete selected post and update list to correct amount", async () => {
+      let post1 = new Post({ message: "howdy!" });
+      await post1.save();
+      let response = await request(app)
+        .get("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ token: token });
+
+      let posts = response.body.posts.map((post) => [
+        post._id,
+      ]);
+
+      const Post_ID = posts[0]
+      // console.log("chris" + posts)
+      let response2 = await request(app)
+        .delete("/posts")
+        .set({"Post_ID": Post_ID})
+        .set("Authorization", `Bearer ${token}`)
+        .send({ token: token });
+      let refreshed_posts = await Post.find();
+      expect(response2.statusCode).toBe(200);
+      expect(refreshed_posts.length).toEqual(0);
+    });
+  });
 });
