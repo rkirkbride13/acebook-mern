@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
 import PostForm from "../postForm/PostForm";
+import PropTypes from 'prop-types';
 
 const Feed = ({ navigate }) => {
+
+  Feed.propTypes = {
+    navigate: PropTypes.func
+  }
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 

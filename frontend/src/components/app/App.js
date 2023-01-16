@@ -2,7 +2,7 @@ import './App.css';
 import LoginForm from '../auth/LoginForm'
 import SignUpForm from '../user/SignUpForm'
 import ProfilePage from '../../pages/userProfile'
-import React, { useState } from 'react';
+import React from 'react';
 import Feed from '../feed/Feed'
 import {
   useNavigate,

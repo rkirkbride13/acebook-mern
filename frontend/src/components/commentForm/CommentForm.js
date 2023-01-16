@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './CommentForm.css'
 
-const CommentForm = () => {
+const CommentForm = ({token, setToken}) => {
 
     const [comment, setComment] = useState(null)
 
@@ -12,24 +12,35 @@ const CommentForm = () => {
         let response = await fetch("/comments", {
             method: 'post',
             headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${token}`
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ text: comment })
-          })
-    };
+        })
+
+        let data = await response.json()
+
+        if (response.status !== 201) {
+            console.log("comment NOT added")
+        } else {
+            console.log("comment added")
+            window.localStorage.setItem("token", data.token)
+            setToken(window.localStorage.getItem("token"))
+            setComment("")
+        }
+
+
+    }
     // Changes the state to update the value of Comment
     const handleCommentChange = (e) => {
         setComment(e.target.value)
     };
-
-
     return (
         <div>
             <form>
                 <label>Please Enter A Comment:</label>
-                <textarea value={comment} onChange={handleCommentChange}></textarea>
-                <button data-cy="submitButton" onClick={handleClick}>Add Comment</button>
+                <textarea id="commentContent" value={comment} onChange={handleCommentChange}></textarea>
+                <button data-cy="submitButton" id="submitButton" onClick={handleClick}>Add Comment</button>
             </form>
         </div>
     )

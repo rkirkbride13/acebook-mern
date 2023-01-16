@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types"
 
 const SignUpForm = ({ navigate }) => {
+
+  SignUpForm.propTypes = {
+    navigate: PropTypes.func,
+  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,10 +45,10 @@ const SignUpForm = ({ navigate }) => {
 
     return (
     <>
-      <div class="titlecenter"> 
+      <div className="titlecenter"> 
         <h2>  Welcome to acebook! </h2>
       </div>
-      <div class="signupform">
+      <div className="signupform">
         <form onSubmit={handleSubmit}>
             <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
             <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />
