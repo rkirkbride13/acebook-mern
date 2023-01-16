@@ -38,7 +38,7 @@ const Feed = ({ navigate }) => {
         <h2>Posts</h2>
         <button onClick={logout}>Logout</button>
         <div data-cy="feed" id="feed" role="feed">
-          {posts.map((post) => <Post post={post} key={post._id} />).reverse()}
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id}/>).reverse()}
         </div>
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
       </>

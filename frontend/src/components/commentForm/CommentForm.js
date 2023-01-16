@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import './CommentForm.css'
+import PropTypes from 'prop-types'
 
-const CommentForm = ({token, setToken}) => {
+const CommentForm = ({token, setToken, post_id}) => {
 
-    const [comment, setComment] = useState(null)
+  CommentForm.propTypes = {
+    token: PropTypes.string,
+    setToken: PropTypes.func,
+    post_id: PropTypes.string
+  }
+
+    const [comment, setComment] = useState("")
 
     // POST request to create Comment
     const handleClick = async (e) => {
@@ -15,7 +22,7 @@ const CommentForm = ({token, setToken}) => {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ text: comment })
+            body: JSON.stringify({ text: comment, post_id: post_id })
         })
 
         let data = await response.json()
