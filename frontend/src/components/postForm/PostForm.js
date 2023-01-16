@@ -54,7 +54,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Create a new post</label>
-        <textarea maxLength="175" placeHolder="Write your post here..." id="postContent" type='text' value={postContent} onChange={handlePostChange} />
+        <textarea maxLength="175" placeholder="Write your post here..." id="postContent" type='text' value={postContent} onChange={handlePostChange} />
         <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Create Post</button>
       </form>
     </div>

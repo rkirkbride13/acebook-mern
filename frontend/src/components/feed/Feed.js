@@ -15,6 +15,7 @@ const Feed = ({ navigate }) => {
       })
         .then((response) => response.json())
         .then(async (data) => {
+          console.log(data)
           window.localStorage.setItem("token", data.token);
           setToken(window.localStorage.getItem("token"));
           setPosts(data.posts);
@@ -33,7 +34,7 @@ const Feed = ({ navigate }) => {
         <h2>Posts</h2>
         <button onClick={logout}>Logout</button>
         <div data-cy="feed" id="feed" role="feed">
-          {posts.map((post) => <Post post={post} key={post._id} />).reverse()}
+          {posts.map((post) => <Post post={post} key={post._id} token={token} setToken={setToken} />).reverse()}
         </div>
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
       </>
