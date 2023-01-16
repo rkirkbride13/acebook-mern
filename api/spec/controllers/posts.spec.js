@@ -8,8 +8,14 @@ const JWT = require("jsonwebtoken");
 let token;
 
 describe("/posts", () => {
-  beforeAll( async () => {
-    const user = new User({email: "test@test.com", password: "12345678", username: "username"});
+  beforeAll(async () => {
+    await User.deleteMany({});
+    await Post.deleteMany({});
+    const user = new User({
+      email: "test@test.com",
+      password: "12345678",
+      username: "username",
+    });
     await user.save();
     token = TokenGenerator.jsonwebtoken(user.id);
   });
@@ -175,15 +181,13 @@ describe("/posts", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({ token: token });
 
-      let posts = response.body.posts.map((post) => [
-        post._id,
-      ]);
+      let posts = response.body.posts.map((post) => [post._id]);
 
-      const Post_ID = posts[0]
+      const Post_ID = posts[0];
       // console.log("chris" + posts)
       let response2 = await request(app)
         .delete("/posts")
-        .set({"Post_ID": Post_ID})
+        .set({ Post_ID: Post_ID })
         .set("Authorization", `Bearer ${token}`)
         .send({ token: token });
       let refreshed_posts = await Post.find();
