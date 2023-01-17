@@ -3,25 +3,25 @@ import moment from "moment";
 
 const Post = ({ post, token, setToken }) => {
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
-  const [likes, setLikes] = useState("");
+  const [likes, setLikes] = useState(post.likes.length);
   const user_id = window.localStorage.getItem('user_id')
-  console.log(user_id)
+  const post_id = post._id
 
-  const handleSubmit = async (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
 
     let response = await fetch(`/posts/${post._id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'X-Test': "Test input"
       },
       body: JSON.stringify({user_id: user_id})
     })
 
     let data = await response.json()
   
-    console.log(data)
     if (response.status !== 200) {
       console.log("likes not updated")
 
@@ -32,7 +32,7 @@ const Post = ({ post, token, setToken }) => {
 
       // State passed from feed used to update post
       if (token) {
-        fetch("/posts", {
+        fetch(`/posts`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -41,8 +41,13 @@ const Post = ({ post, token, setToken }) => {
           .then(async data => {
             window.localStorage.setItem("token", data.token)
             setToken(window.localStorage.getItem("token"))
-            setLikes(data.posts.likes);
-          })
+            data.posts.map((post) => {
+              if (post._id === post_id) {
+                setLikes(post.likes.length)
+              }
+            })
+          }
+        )
       }
     }
   };
@@ -51,9 +56,7 @@ const Post = ({ post, token, setToken }) => {
     <article data-cy="post" key={post._id} className="post">
       <div>{post.message}</div>
       <div>
-        <form onSubmit={handleSubmit}>
-          <button data-cy="likeButton" id="likeButton" type="submit" value="Submit">like</button> {post.likes.length}
-        </form>
+        <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={handleClick}>heart_plus</span> {likes}
       </div>
       <div className="timestamp">{dateTimeAgo} </div>
     </article>

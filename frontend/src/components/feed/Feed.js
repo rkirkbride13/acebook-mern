@@ -15,7 +15,6 @@ const Feed = ({ navigate }) => {
       })
         .then((response) => response.json())
         .then(async (data) => {
-          console.log(data)
           window.localStorage.setItem("token", data.token);
           setToken(window.localStorage.getItem("token"));
           setPosts(data.posts);
@@ -40,7 +39,7 @@ const Feed = ({ navigate }) => {
       </>
     );
   } else {
-    navigate("/signin");
+    navigate("/login");
   }
 };
 
