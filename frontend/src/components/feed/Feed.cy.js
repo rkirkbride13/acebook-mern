@@ -13,8 +13,8 @@ describe("Feed", () => {
           statusCode: 200,
           body: {
             posts: [
-              { _id: 1, message: "Hello, world" },
-              { _id: 2, message: "Hello again, world" },
+              { _id: 1, message: "Hello, world", likes: [] },
+              { _id: 2, message: "Hello again, world", likes: [] },
             ],
           },
         });
@@ -44,11 +44,13 @@ describe("Feed", () => {
                 _id: 1,
                 message: "Hello, world",
                 createdAt: "2017-02-14T12:51:48.000Z",
+                likes: []
               },
               {
                 _id: 2,
                 message: "Hello again, world",
                 createdAt: "2017-02-14T12:52:48.000Z",
+                likes: []
               },
             ],
           },
@@ -84,11 +86,13 @@ describe("Feed", () => {
                 _id: 1,
                 message: "Hello, world",
                 createdAt: "2017-02-14T12:51:48.000Z",
+                likes: []
               },
               {
                 _id: 2,
                 message: "Hello again, world",
                 createdAt: "2017-02-14T12:52:48.000Z",
+                likes: []
               },
             ],
           },
@@ -120,13 +124,13 @@ describe("Feed", () => {
               {
                 _id: 1,
                 message: "Hello, world",
-                likes: 1,
+                likes: ['user1'],
                 createdAt: "2017-02-14T12:51:48.000Z",
               },
               {
                 _id: 2,
                 message: "Hello again, world",
-                likes: 2,
+                likes: ['user1', 'user2'],
                 createdAt: "2017-02-14T12:52:48.000Z",
               },
             ],
@@ -138,8 +142,8 @@ describe("Feed", () => {
 
       cy.wait("@getPosts").then(() => {
         cy.get('[data-cy="post"]').then((posts) => {
-          expect(posts[0]).to.contain.text("like 2");
-          expect(posts[1]).to.contain.text("like 1");
+          expect(posts[0]).to.contain.text("2");
+          expect(posts[1]).to.contain.text("1");
         });
       });
     }
