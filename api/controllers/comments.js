@@ -3,8 +3,11 @@ const TokenGenerator = require("../models/token_generator");
 
 const CommentsController = {
   Create: (req, res) => {
+    console.log(req.user_id)
     const {text, post_id} = req.body
-    const comment = new Comment(text, req.user_id, post_id );
+    const user_id = req.user_id
+
+    const comment = new Comment({text, user_id, post_id });
     comment.save(async (err) => {
       if (err) {
         throw err;

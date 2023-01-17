@@ -15,17 +15,19 @@ const CommentForm = ({token, setToken, post_id}) => {
     // POST request to create Comment
     const handleClick = async (e) => {
         e.preventDefault()
-
+        // console.log(post_id)
         let response = await fetch("/comments", {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`
             },
+            
             body: JSON.stringify({ text: comment, post_id: post_id })
         })
-
+        // console.log(response)
         let data = await response.json()
+        
 
         if (response.status !== 201) {
             console.log("comment NOT added")
