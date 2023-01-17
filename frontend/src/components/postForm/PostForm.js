@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import './PostForm.css'
+import PropTypes from 'prop-types'
 
 const PostForm = ({ setPosts, token, setToken }) => {
+
+  PostForm.propTypes = {
+    setPosts: PropTypes.func,
+    token: PropTypes.string,
+    setToken: PropTypes.func,
+  };
+
   const [postContent, setPostContent] = useState("");
 
   const handleSubmit = async (e) => {

@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
 import PostForm from "../postForm/PostForm";
+import PropTypes from 'prop-types';
+import './Feed.css';
 
 const Feed = ({ navigate }) => {
+
+  Feed.propTypes = {
+    navigate: PropTypes.func
+  }
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
@@ -30,12 +36,16 @@ const Feed = ({ navigate }) => {
   if (token) {
     return (
       <>
+        <nav id="nav"> 
+        <h1>AceBook</h1>      
         <h2>Posts</h2>
         <button onClick={logout}>Logout</button>
-        <div data-cy="feed" id="feed" role="feed">
-          {posts.map((post) => <Post post={post} key={post._id} token={token} setToken={setToken} />).reverse()}
-        </div>
+        </nav> 
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
+        <div data-cy="feed" id="feed" role="feed">
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+        </div>
+        
       </>
     );
   } else {

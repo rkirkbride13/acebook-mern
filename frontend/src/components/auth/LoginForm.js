@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 
 const LogInForm = ({ navigate }) => {
+
+  LogInForm.propTypes = {
+    navigate: PropTypes.func
+  };
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

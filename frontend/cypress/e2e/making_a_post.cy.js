@@ -1,5 +1,4 @@
 describe("Creating post", () => {
-
   before(() => {
     cy.signup("user@email.com", "12345678", "username")
     cy.login("user@email.com", "12345678")
@@ -9,7 +8,7 @@ describe("Creating post", () => {
     cy.visit("/posts");
     cy.get("#postContent").type("e2e test post");
     cy.get("#submitButton").click();
-    
-    cy.get('#feed').should('contains.text', "e2e test post");
-  })
-})
+
+    cy.get("#feed").should("contains.text", "e2e test post");
+  });
+});
