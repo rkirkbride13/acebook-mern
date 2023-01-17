@@ -1,0 +1,16 @@
+#nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #1aac83;
+    color: #fff;
+    
+}
+
+#nav, h2 {
+    color: #fff;
+}
+
+#nav, button {
+    border: solid 1px #fff;
+}

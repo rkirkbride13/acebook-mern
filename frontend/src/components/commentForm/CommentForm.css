@@ -7,7 +7,7 @@ textarea {
 
 
 
-textarea {
+ textarea {
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -17,18 +17,11 @@ textarea {
     box-sizing: border-box;
 } 
 
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 form button {
     background: var(--primary);
     border: 0;
-    color: #ffefef;
-    border: 1px solid #ffefef;
+    color: rgb(73, 149, 220);
+    border: 1px solid #ddd;
     padding: 10px;
     font-family: "Poppins";
     border-radius: 4px;

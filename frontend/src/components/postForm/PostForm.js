@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import './PostForm.css'
+import PropTypes from 'prop-types'
 
 const PostForm = ({ setPosts, token, setToken }) => {
+
+  PostForm.propTypes = {
+    setPosts: PropTypes.func,
+    token: PropTypes.string,
+    setToken: PropTypes.func,
+  };
+
   const [postContent, setPostContent] = useState("");
 
   const handleSubmit = async (e) => {
@@ -54,7 +62,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Create a new post</label>
-        <textarea maxLength="175" placeHolder="Write your post here..." id="postContent" type='text' value={postContent} onChange={handlePostChange} />
+        <textarea maxLength="175" placeholder="Write your post here..." id="postContent" type='text' value={postContent} onChange={handlePostChange} />
         <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Create Post</button>
       </form>
     </div>
