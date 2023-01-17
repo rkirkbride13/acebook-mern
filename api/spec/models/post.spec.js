@@ -21,7 +21,8 @@ describe("Post model", () => {
       expect(posts).toEqual([]);
       done();
     });
-  });
+  })
+  ;
 
   it("can save a post", (done) => {
     var post = new Post({ message: "some message" });
@@ -51,6 +52,22 @@ describe("Post model", () => {
 
         expect(posts[0]).toMatchObject({ message: "some message" });
         expect(posts[0].createdAt).not.toEqual(undefined);
+        done();
+      });
+    });
+  });
+
+  it("shows no likes on the post initially", (done) => {
+    var post = new Post({ message: "some message" });
+
+    post.save((err) => {
+      expect(err).toBeNull();
+
+      Post.find((err, posts) => {
+        expect(err).toBeNull();
+
+        expect(posts[0]).toMatchObject({ message: "some message" });
+        expect(posts[0].likes.toObject()).toEqual([]);
         done();
       });
     });

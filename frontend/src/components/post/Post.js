@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
@@ -12,7 +12,8 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     post: PropTypes.object,
     createdAt: PropTypes.string,
     _id: PropTypes.string,
-    message: PropTypes.string
+    message: PropTypes.string,
+    setPosts: PropTypes.func,
   }
 
   const [commentsView, setCommentsView] = useState(false)
@@ -22,9 +23,57 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   }
 
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
+  const [likes, setLikes] = useState(post.likes.length);
+  const user_id = window.localStorage.getItem('user_id')
+  // const post_id = post._id
+
+  const likePost = async (e) => {
+    e.preventDefault();
+
+    let response = await fetch(`/posts/${post._id}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+        'X-Test': "Test input"
+      },
+      body: JSON.stringify({user_id: user_id})
+    })
+
+    let data = await response.json()
+  
+    if (response.status !== 200) {
+      console.log("likes not updated")
+
+    } else {
+      console.log("likes updated")
+      window.localStorage.setItem("token", data.token)
+      setToken(window.localStorage.getItem("token"))
+
+      // State passed from feed used to update post
+      if (token) {
+        fetch(`/posts`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+          .then(response => response.json())
+          .then(async data => {
+            window.localStorage.setItem("token", data.token)
+            setToken(window.localStorage.getItem("token"))
+            data.posts.map((post) => {
+              if (post._id === post_id) {
+                setLikes(post.likes.length)
+              }
+            })
+          }
+        )
+      }
+    }
+  };
 
   // The delete the post with POST_ID
-  const handleClick = async () => {
+  const deletePost = async () => {
     const response = await fetch("/posts", {
       method: "DELETE",
       headers: {
@@ -59,17 +108,18 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       }
     }
   };
-
+  
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
         <div className="postText">{post.message} </div>
+        <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
         <div className="timestamp">{dateTimeAgo} </div>
         <span
         data-cy="deleteButton"
         className="material-symbols-outlined"
-        onClick={handleClick}
+        onClick={deletePost}
         >
         delete
       </span>
