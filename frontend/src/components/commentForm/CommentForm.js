@@ -61,8 +61,7 @@ const CommentForm = ({  setComments, token, setToken, post_id }) => {
     return (
         <div>
             <form>
-                <label>Please Enter A Comment:</label>
-                <textarea id="commentContent" value={comment} onChange={handleCommentChange}></textarea>
+                <textarea id="commentContent" value={comment} onChange={handleCommentChange} placeholder="Please Enter a Comment..."></textarea>
                 <button data-cy="submitButton" id="submitButton" onClick={handleClick}>Add Comment</button>
             </form>
         </div>

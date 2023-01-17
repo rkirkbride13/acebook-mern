@@ -24,9 +24,13 @@ const Post = ({ post, token, setToken, post_id }) => {
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
   return (
     <article data-cy="post" key={post._id} className="post">
-      <div>{post.message} </div>
-      <div className="timestamp">{dateTimeAgo} </div>
-      <button onClick={showComments}>Comments</button>
+      <div className="messageContainer">
+      <div className="messageContent">
+        <div className="postText">{post.message} </div>
+        <div className="timestamp">{dateTimeAgo} </div>
+      </div>
+      <button className="commentButton" onClick={showComments}>Comments</button>
+      </div>
       {commentsView && <div display="none"><Comments display={commentsView} token={token} setToken={setToken} post_id={post_id}/></div>}
     </article>
   );

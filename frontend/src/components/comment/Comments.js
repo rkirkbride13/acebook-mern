@@ -32,9 +32,9 @@ const Comments = ({ token, setToken, post_id }) => {
   return (
     <div>
       <div data-cy="comment">
-        Comments here
+        
         {comments.map((comment) => {
-          return <p key={comment._id}>{comment.text}</p>
+          return <p className="comment-p" key={comment._id}>{comment.text}</p>
         })}
       </div>
       <CommentForm setComments={setComments} token={token} setToken={setToken} post_id={post_id} />
