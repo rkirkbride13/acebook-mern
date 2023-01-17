@@ -45,7 +45,11 @@ const Post = ({ post, setPosts, token, setToken }) => {
     <article data-cy="post" key={post._id} className="post">
       <div>{post.message} </div>
       <div className="timestamp">{dateTimeAgo} </div>
-      <span data-cy="deleteButton" onClick={handleClick}>
+      <span
+        data-cy="deleteButton"
+        className="material-symbols-outlined"
+        onClick={handleClick}
+      >
         delete
       </span>
     </article>
