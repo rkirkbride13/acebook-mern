@@ -2,40 +2,54 @@ import React, { useState } from "react";
 import './CommentForm.css'
 import PropTypes from 'prop-types'
 
-const CommentForm = ({token, setToken, post_id}) => {
+const CommentForm = ({  setComments, token, setToken, post_id }) => {
 
-  CommentForm.propTypes = {
-    token: PropTypes.string,
-    setToken: PropTypes.func,
-    post_id: PropTypes.string
-  }
+    CommentForm.propTypes = {        
+        setComments: PropTypes.func,
+        token: PropTypes.string,
+        setToken: PropTypes.func,
+        post_id: PropTypes.string
+    }
 
     const [comment, setComment] = useState("")
 
     // POST request to create Comment
     const handleClick = async (e) => {
-        e.preventDefault()
-        // console.log(post_id)
+        e.preventDefault();        
         let response = await fetch("/comments", {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`
             },
-            
+
             body: JSON.stringify({ text: comment, post_id: post_id })
         })
-        // console.log(response)
+       
         let data = await response.json()
-        
 
         if (response.status !== 201) {
-            console.log("comment NOT added")
+            console.log("comment NOT added");
         } else {
-            console.log("comment added")
-            window.localStorage.setItem("token", data.token)
-            setToken(window.localStorage.getItem("token"))
-            setComment("")
+            console.log("comment added");
+            window.localStorage.setItem("token", data.token);
+            setToken(window.localStorage.getItem("token"));
+            setComment("");
+            // Refreshes comments on pages when successful POST request is made
+            if (token) {
+                fetch("/comments", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        post_id: `${post_id}`,
+                    },
+                })
+                    .then((response) => response.json())
+                    .then(async (data) => {
+                        window.localStorage.setItem("token", data.token);
+                        setToken(window.localStorage.getItem("token"));
+                        setComments(data.comments);
+                    });
+            }
         }
 
 

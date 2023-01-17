@@ -7,9 +7,9 @@ describe("Creating post", () => {
   
     it("Able to add comment to posts", () => {
       cy.visit("/posts");
-      cy.get("#commentContent").type("e2e test post");
+      cy.get("#commentContent").type("e2e test comment");
       cy.get("#submitButton").click();
       
-      cy.get('#feed').should('contains.text', "e2e test post");
+      cy.get('#feed').should('contains.text', "e2e test comment");
     })
   })

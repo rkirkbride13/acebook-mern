@@ -20,8 +20,8 @@ textarea {
 form button {
     background: var(--primary);
     border: 0;
-    color: rgb(73, 149, 220);
-    border: 1px solid #ddd;
+    color: #ffefef;
+    border: 1px solid #ffefef;
     padding: 10px;
     font-family: "Poppins";
     border-radius: 4px;
