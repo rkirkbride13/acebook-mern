@@ -19,7 +19,8 @@ const PostForm = ({ setPosts, token, setToken }) => {
     formData.append("photo", photo);
     formData.append("message", JSON.stringify(postContent));
 
-    console.log(photo);
+    console.log(formData.get("photo"));
+    console.log(formData.get("message"));
 
     let response = await fetch("/posts", {
       method: "post",
