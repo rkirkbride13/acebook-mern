@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
@@ -130,6 +132,24 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       }
     }
   };
+
+  const confirmDeletePost = () => {
+
+    confirmAlert({
+      title: 'Delete post?',
+      message: 'Are you sure you want to delete this post?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => deletePost()
+        },
+        {
+          label: 'No',
+          // onClick: () => alert('Click No')
+        }
+      ]
+    })
+  }
   
   return (
     <article data-cy="post" key={post._id} className="post">
@@ -141,7 +161,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
         {deleteButtonView && <span
         data-cy="deleteButton"
         className="material-symbols-outlined"
-        onClick={deletePost}
+        onClick={confirmDeletePost}
         >
         delete
       </span>}
