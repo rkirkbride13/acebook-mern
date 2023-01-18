@@ -45,8 +45,8 @@ const SignUpForm = ({ navigate }) => {
 
     return (
     <>
-      <div className="titlecenter"> 
-        <h2>  Welcome to acebook! </h2>
+      <div className="titlecenter">
+        <h2 className='title'>  Welcome to acebook! </h2>
       </div>
       <div className="signupform">
         <form onSubmit={handleSubmit}>

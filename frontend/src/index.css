@@ -23,7 +23,7 @@ header .container {
   justify-content: space-between;
 }
 h2 {
-  color: #333;
+  color: black;
   text-decoration: none;
   margin: 20px 20px;
   padding: 20px;
@@ -32,6 +32,11 @@ h2 {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
+}
+
+.title {
+  color: #1bab83;
+  text-shadow: #000 0.5px 0.5px 0.5px;
 }
 
 /* posts */
