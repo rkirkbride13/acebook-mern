@@ -47,8 +47,12 @@ const SignUpForm = ({ navigate }) => {
     <>
       <div className="titlecenter">
         <h2 className='title'>  Welcome to acebook! </h2>
+        <div className='content'>Already have an account? </div>
+        <a className='content' href="../login">login here</a>
       </div>
+
       <div className="signupform">
+      <div className='content'>Signup here!</div>
         <form onSubmit={handleSubmit}>
             <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
             <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />

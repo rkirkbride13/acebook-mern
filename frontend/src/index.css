@@ -39,6 +39,13 @@ h2 {
   text-shadow: #000 0.5px 0.5px 0.5px;
 }
 
+.content {
+  font-size: medium;
+  color: #1aac83;
+  font: bold;
+  display: flex;
+  justify-content: center;
+}
 /* posts */
 #root {
   display: flex;
