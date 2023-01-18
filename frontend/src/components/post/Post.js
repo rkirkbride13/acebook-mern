@@ -30,6 +30,8 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
 
   const likePost = async (e) => {
     e.preventDefault();
+
+    // A true/false toggle on whether the user has liked the post already
     setLiked((state) => !state);
 
     let response = await fetch(`/posts/${post._id}`, {
@@ -51,7 +53,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       window.localStorage.setItem("token", data.token)
       setToken(window.localStorage.getItem("token"))
 
-      // State passed from feed used to update post
+      // State passed from feed used to update number of likes on post
       if (token) {
         fetch(`/posts`, {
           headers: {
