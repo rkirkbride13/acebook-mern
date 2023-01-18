@@ -32,7 +32,6 @@ const Comments = ({ token, setToken, post_id }) => {
   return (
     <div>
       <div data-cy="comment">
-        
         {comments.map((comment) => {
           return <p className="comment-p" key={comment._id}>{comment.text}</p>
         })}

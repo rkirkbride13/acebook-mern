@@ -9,6 +9,7 @@ describe("Deleting post", () => {
     cy.get("#postContent").type("e2e test delete post");
     cy.get("#submitButton").click();
     cy.get('[data-cy="deleteButton"]').first().click();
+    cy.get('#confirmDeleteButton').click()
 
     cy.get("#feed").not("contain.text", "e2e test delete post");
   });
