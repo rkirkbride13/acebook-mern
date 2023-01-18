@@ -25,19 +25,20 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
   const [likes, setLikes] = useState(post.likes.length);
   const user_id = window.localStorage.getItem('user_id')
-  // const post_id = post._id
+  const isPostLiked = post.likes.includes(user_id);
+  const [liked, setLiked] = useState(isPostLiked);
 
   const likePost = async (e) => {
     e.preventDefault();
+    setLiked((state) => !state);
 
     let response = await fetch(`/posts/${post._id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
-        'X-Test': "Test input"
       },
-      body: JSON.stringify({user_id: user_id})
+      body: JSON.stringify({user_id: user_id, liked})
     })
 
     let data = await response.json()
@@ -114,7 +115,9 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       <div className="messageContainer">
       <div className="messageContent">
         <div className="postText">{post.message} </div>
-        <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
+        <div className="likeButton">
+          <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
+        </div>
         <div className="timestamp">{dateTimeAgo} </div>
         <span
         data-cy="deleteButton"

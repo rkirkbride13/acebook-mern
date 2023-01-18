@@ -31,13 +31,19 @@ const PostsController = {
       res.status(201).json({ message: "OK", token: token });
     });
   },
-  PostLikes: (req, res) => {
-    Post.updateOne({_id: req.params.id}, 
-      { $addToSet: { likes: req.body.user_id } }
-    ).then(() => res.status(200).json({ message: "OK"}))
-      .catch(error => {
-        res.status(400).json({ error })
-      })
+  Update: async (req, res) => {
+    try {
+      if (!req.body.liked) {
+        await Post.updateOne({_id: req.params.id}, 
+          { $addToSet: { likes: req.body.user_id } })
+      } else {
+        await Post.updateOne({_id: req.params.id}, 
+          { $pull: { likes: req.body.user_id } })
+      }
+      res.status(200).json({ message: "OK"})
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   },
   Delete: async (req, res) => {
     try {
