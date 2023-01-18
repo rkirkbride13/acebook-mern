@@ -47,8 +47,11 @@ const PostsController = {
     (upload.single("photo"),
     (req, res) => {
       const message = req.body.message;
-      const photo = req.body.photo;
-      console.log(req.body.photo);
+
+      console.log(req.body);
+      // const photo = req.file.filename;
+      // console.log(req.file.filename);
+
       const post = new Post(message);
       // console.log(typeof post, post);
       post.save(async (err) => {
