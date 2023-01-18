@@ -43,11 +43,18 @@ const LogInForm = ({ navigate }) => {
 
 
     return (
-      <form onSubmit={handleSubmit}>
+      <div>
+        <div className='content-login'>
+          Login
+        </div>
+              <form onSubmit={handleSubmit}>
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
         <input role='submit-button' id='submit' type="submit" value="Submit" />
       </form>
+      <div className='content'>Not a user?<a href='./signup'>&nbsp;Signup here</a></div>
+      </div>
+
     );
 }
 

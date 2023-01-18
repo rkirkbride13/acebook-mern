@@ -132,3 +132,14 @@ button {
 #commentContent {
   margin-top: 40px;
 }
+
+/*login*/
+.content-login {
+  font-size: xx-large;
+  color: #1aac83;
+  font: bold;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px;
+}
