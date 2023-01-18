@@ -133,6 +133,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     }
   };
 
+  // Confirm delete pop up
   const confirmDeletePost = () => {
 
     confirmAlert({
@@ -140,6 +141,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       message: 'Are you sure you want to delete this post?',
       buttons: [
         {
+          id: 'confirmDeleteButton',
           label: 'Yes',
           onClick: () => deletePost()
         },

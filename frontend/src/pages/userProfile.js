@@ -64,7 +64,7 @@ const UserProfile = ({ navigate }) => {
     <>
     <nav id="nav"> 
       <h1>Acebook</h1>      
-      <h2>{user.username}&apos;s profile!</h2>
+      <h2 data-cy="user">{user.username}&apos;s profile!</h2>
       <div>
         <button onClick={feed}>Feed</button>
         <button onClick={logout}>Logout</button>
@@ -75,12 +75,11 @@ const UserProfile = ({ navigate }) => {
     </div>
     
     <div className="center">
-      <h2 data-cy="user">  </h2> 
       <h3> your posts </h3>
     </div>
-    <div>
+    <div data-cy="post">
           {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
-      </div>
+    </div>
 
    
     

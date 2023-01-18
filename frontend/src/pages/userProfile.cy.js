@@ -23,5 +23,25 @@ describe("UserProfile", () => {
       .should('contain.text', "username")
     })
   })
+
+  it("displays the users posts", { defaultCommandTimeout: 10000 }, () => {
+    window.localStorage.setItem("token", "fakeToken")
+    
+    cy.intercept('GET', '/posts/user', (req) => {
+      req.reply({
+        statusCode: 200,
+        body: { posts: [ {_id: 1, message: "hello", likes: [], user_id: 1}]
+        }
+      })
+    }
+  ).as("getPosts")
+
+  cy.mount(<UserProfile navigate={navigate}/>)
+    
+    cy.wait("@getPosts").then(() =>{
+      cy.get('[data-cy="post"]')
+      .should('contain.text', "hello")
+    })
+  })
 })
 
