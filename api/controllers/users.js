@@ -11,6 +11,7 @@ const UsersController = {
       res.status(201).json({email, user})
     } catch (error) {
       res.status(400).json({error: error.message});
+
     }
   },
 

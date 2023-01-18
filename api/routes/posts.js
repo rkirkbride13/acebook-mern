@@ -7,7 +7,7 @@ router.get("/", PostsController.Index);
 router.get("/user", PostsController.FindByUser);
 router.get("/:id", PostsController.Find);
 router.post("/", PostsController.Create);
-router.patch("/:id", PostsController.PostLikes);
+router.patch("/:id", PostsController.Update);
 // DELETE a post
 router.delete("/", PostsController.Delete);
 

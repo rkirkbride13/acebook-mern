@@ -31,8 +31,8 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   const deleteButtonView = (post.user_id === user_id)
 
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
-  
-  // const post_id = post._id
+  const isPostLiked = post.likes.includes(user_id);
+  const [liked, setLiked] = useState(isPostLiked);
 
   useEffect(() => {
     if(token) {
@@ -54,14 +54,16 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   const likePost = async (e) => {
     e.preventDefault();
 
+    // A true/false toggle on whether the user has liked the post already
+    setLiked((state) => !state);
+
     let response = await fetch(`/posts/${post._id}`, {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
-        'X-Test': "Test input"
       },
-      body: JSON.stringify({user_id: user_id})
+      body: JSON.stringify({user_id: user_id, liked})
     })
 
     let data = await response.json()
@@ -74,7 +76,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       window.localStorage.setItem("token", data.token)
       setToken(window.localStorage.getItem("token"))
 
-      // State passed from feed used to update post
+      // State passed from feed used to update number of likes on post
       if (token) {
         fetch(`/posts`, {
           headers: {
@@ -158,7 +160,9 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       <div className="messageContainer">
       <div className="messageContent">
         <div className="postText">{`@${user.username}: ${post.message}`} </div>
-        <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
+        <div className="likeButton">
+          <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
+        </div>
         <div className="timestamp">{dateTimeAgo} </div>
         {deleteButtonView && <span
         data-cy="deleteButton"
