@@ -18,14 +18,18 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
 
   const [commentsView, setCommentsView] = useState(false)
   const [user, setUser] = useState({});
-
+  const [likes, setLikes] = useState(post.likes.length);
+  const user_id = window.localStorage.getItem('user_id')
+  
+  
   const showComments = () => {
     setCommentsView(!commentsView)    
   }
+  
+  const deleteButtonView = (post.user_id === user_id)
 
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
-  const [likes, setLikes] = useState(post.likes.length);
-  const user_id = window.localStorage.getItem('user_id')
+  
   // const post_id = post._id
 
   useEffect(() => {
@@ -33,7 +37,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       fetch("/users", {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'User_ID': `${user_id}`
+          'User_ID': `${post.user_id}`
         }
       })
         .then(response => response.json())
@@ -41,7 +45,6 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
           window.localStorage.setItem("token", data.token)
           setToken(window.localStorage.getItem("token"))
           setUser(data.user);
-          console.log(user_id);
         })
     }
   }, []);
@@ -135,13 +138,13 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
         <div className="postText">{`@${user.username}: ${post.message}`} </div>
         <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
         <div className="timestamp">{dateTimeAgo} </div>
-        <span
+        {deleteButtonView && <span
         data-cy="deleteButton"
         className="material-symbols-outlined"
         onClick={deletePost}
         >
         delete
-      </span>
+      </span>}
       </div>
       <button className="commentButton" onClick={showComments}>Comments</button>
       </div>

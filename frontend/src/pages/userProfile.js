@@ -43,23 +43,24 @@ const UserProfile = ({ navigate }) => {
   
   return (
     <>
+    <nav id="nav"> 
+      <h1>Acebook</h1>      
+      <h2>{user.username}&apos;s profile!</h2>
+      <div>
+        <button onClick={feed}>Feed</button>
+        <button onClick={logout}>Logout</button>
+      </div>
+    </nav> 
     <div className="img" > 
       <img src={dp1} alt="dp1" /> 
     </div>
     
     <div className="center">
-      <h2 data-cy="user"> {user.username}s profile! </h2> 
+      <h2 data-cy="user">  </h2> 
       <h3> your posts </h3>
     </div>
 
-    <div className="topcorner"> 
-      <button onClick={feed}>
-      feed 
-      </button>
-      <button  onClick={logout}>
-      logout
-      </button> 
-    </div>
+   
     
     
     
