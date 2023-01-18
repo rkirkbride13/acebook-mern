@@ -51,6 +51,15 @@ const PostsController = {
       res.status(400).json({ error: error.message });
     }
   },
+  FindByUser: (req, res) => {
+    Post.find({user_id: (req.get('User_ID'))}, async (err, posts) => {
+      if (err) {
+        throw err;
+      }
+      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+      res.status(200).json({posts: posts, token: token});
+    });
+  },
 };
 
 module.exports = PostsController;
