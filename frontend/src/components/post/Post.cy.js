@@ -17,11 +17,11 @@ describe("Post", () => {
   it("renders a post with likes", () => {
     cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: ['user1', 'user2'], createdAt: "2023-01-13T10:01:40.382Z" }} />);
 
-    cy.get('[data-cy="post"]').should("contain.text", "heart_plus");
+    cy.get('[data-cy="post"]').should("contain.text", "heart_plus 2");
   });
 
   it("renders a delete button on post", () => {
-    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [] }} />);
+    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [], user_id: null }} />);
     cy.get('[data-cy="deleteButton"]').should("contains.text", "delete");
   });
 
@@ -30,7 +30,7 @@ describe("Post", () => {
 
     cy.mount(
       <Post
-        post={{ _id: 1, createdAt: "2023-01-13T10:01:40.382Z", likes: [] }}
+        post={{ _id: 1, createdAt: "2023-01-13T10:01:40.382Z", likes: [], user_id: null }}
         setToken={setTokenMock}
       />
     );
@@ -43,6 +43,7 @@ describe("Post", () => {
     // cy.mount(<Post navigate={navigate} />);
 
     cy.get('[data-cy="deleteButton"]').click();
+    cy.get('#confirmDeleteButton').click();
     cy.wait("@deletePostRequest").then((interception) => {
       expect(interception.response.body.message).to.eq("DELETE");
       expect(interception.response.body.token).to.eq("fakeToken");

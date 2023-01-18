@@ -9,6 +9,8 @@ const LogInForm = ({ navigate }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [UserDoesntExsistsErrorMessage, setUserDoesntExsistsErrorMessage] = useState('');
+  const [EmptyFieldErrorMessage, setEmptyFieldErrorMessage] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,10 +23,15 @@ const LogInForm = ({ navigate }) => {
       body: JSON.stringify({ email: email, password: password })
     })
 
-    if(response.status !== 201) {
+    if (email === '' || password === ''){
+      console.log('empty field')
+      navigate('/login')
+      setEmptyFieldErrorMessage('Please enter both your password and email')
+    } else if (response.status !== 201) {
       console.log("oop")
       navigate('/login')
-    } else {
+      setUserDoesntExsistsErrorMessage('This user is not registered - please signup first')
+    } else{
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
@@ -41,18 +48,27 @@ const LogInForm = ({ navigate }) => {
     setPassword(event.target.value)
   }
 
+  const handleError = () => {
+    setEmptyFieldErrorMessage('')
+    setUserDoesntExsistsErrorMessage('')
+  }
+
 
     return (
       <div>
         <div className='content-login'>
           Login
         </div>
-              <form onSubmit={handleSubmit}>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        <input role='submit-button' id='submit' type="submit" value="Submit" />
-      </form>
-      <div className='content'>Not a user?<a href='./signup'>&nbsp;Signup here</a></div>
+        <div className='errorMessages'>
+        {UserDoesntExsistsErrorMessage && (<p className="error"> {UserDoesntExsistsErrorMessage} </p>)}
+              {EmptyFieldErrorMessage && (<p className="error"> {EmptyFieldErrorMessage} </p>)}
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} onClick={handleError}/>
+          <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} onClick={handleError}/>
+          <input role='submit-button' id='submit' type="submit" value="Submit" />
+        </form>
+        <div className='content'>Not a user?<a href='./signup'>&nbsp;Signup here</a></div>
       </div>
 
     );

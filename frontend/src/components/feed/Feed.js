@@ -11,6 +11,7 @@ const Feed = ({ navigate }) => {
   }
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const user_id = window.localStorage.getItem('user_id')
 
   useEffect(() => {
     if (token) {
@@ -33,13 +34,20 @@ const Feed = ({ navigate }) => {
     navigate("/login");
   };
 
+  const profilePage = () => {
+    navigate(`/profile/${user_id}`)
+  }
+
   if (token) {
     return (
       <>
         <nav id="nav"> 
         <h1>AceBook</h1>      
         <h2>Posts</h2>
+        <div>
+        <button onClick={profilePage}>Profile</button>
         <button onClick={logout}>Logout</button>
+        </div>
         </nav> 
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
         <div data-cy="feed" id="feed" role="feed">
@@ -49,7 +57,7 @@ const Feed = ({ navigate }) => {
       </>
     );
   } else {
-    navigate("/login");
+    navigate("/signin");
   }
 };
 
