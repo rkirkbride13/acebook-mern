@@ -21,12 +21,14 @@ const PostsController = {
     });
   },
   Create: (req, res) => {
-    const post = new Post(req.body);
+    const message = req.body.message;
+    const user_id = req.body.user_id;
+    const post = new Post({message, user_id});
     post.save(async (err) => {
       if (err) {
         throw err;
       }
-
+      // console.log(req.user_id)
       const token = await TokenGenerator.jsonwebtoken(req.user_id);
       res.status(201).json({ message: "OK", token: token });
     });

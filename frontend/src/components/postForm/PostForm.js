@@ -11,6 +11,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
   };
 
   const [postContent, setPostContent] = useState("");
+  const user_id = window.localStorage.getItem('user_id')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ message: postContent })
+      body: JSON.stringify({ message: postContent, user_id: user_id })
     })
 
     let data = await response.json()

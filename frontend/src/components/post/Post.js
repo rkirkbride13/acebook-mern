@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
@@ -17,6 +17,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   }
 
   const [commentsView, setCommentsView] = useState(false)
+  const [user, setUser] = useState({});
 
   const showComments = () => {
     setCommentsView(!commentsView)    
@@ -26,6 +27,24 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   const [likes, setLikes] = useState(post.likes.length);
   const user_id = window.localStorage.getItem('user_id')
   // const post_id = post._id
+
+  useEffect(() => {
+    if(token) {
+      fetch("/users", {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'User_ID': `${user_id}`
+        }
+      })
+        .then(response => response.json())
+        .then(async data => {
+          window.localStorage.setItem("token", data.token)
+          setToken(window.localStorage.getItem("token"))
+          setUser(data.user);
+          console.log(user_id);
+        })
+    }
+  }, []);
 
   const likePost = async (e) => {
     e.preventDefault();
@@ -113,7 +132,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
-        <div className="postText">{post.message} </div>
+        <div className="postText">{`@${user.username}: ${post.message}`} </div>
         <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
         <div className="timestamp">{dateTimeAgo} </div>
         <span
