@@ -40,7 +40,8 @@ const PostsController = {
         await Post.updateOne({_id: req.params.id}, 
           { $pull: { likes: req.body.user_id } })
       }
-      res.status(200).json({ message: "OK"})
+      const token = await TokenGenerator.jsonwebtoken(req.body.user_id);
+      res.status(200).json({ message: "OK", token: token})
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
