@@ -68,9 +68,13 @@ const SignUpForm = ({ navigate }) => {
     return (
     <>
       <div className="titlecenter">
-        <h2>  Welcome to acebook! </h2>
+        <h2 className='title'>  Welcome to acebook! </h2>
+        <div className='content'>Already have an account? </div>
+        <a className='content' href="../login">login here</a>
       </div>
+
       <div className="signupform">
+      <div className='content'>Signup here!</div>
       <div className='errorMessages'>
               {UserExsistsErrorMessage && (<p className="error"> {UserExsistsErrorMessage} </p>)}
               {EmptyFieldErrorMessage && (<p className="error"> {EmptyFieldErrorMessage} </p>)}

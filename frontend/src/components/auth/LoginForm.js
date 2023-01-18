@@ -55,17 +55,22 @@ const LogInForm = ({ navigate }) => {
 
 
     return (
-      <>
-      <div className='errorMessages'>
+      <div>
+        <div className='content-login'>
+          Login
+        </div>
+        <div className='errorMessages'>
         {UserDoesntExsistsErrorMessage && (<p className="error"> {UserDoesntExsistsErrorMessage} </p>)}
               {EmptyFieldErrorMessage && (<p className="error"> {EmptyFieldErrorMessage} </p>)}
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} onClick={handleError}/>
+          <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} onClick={handleError}/>
+          <input role='submit-button' id='submit' type="submit" value="Submit" />
+        </form>
+        <div className='content'>Not a user?<a href='./signup'>&nbsp;Signup here</a></div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} onClick={handleError} />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} onClick={handleError}/>
-        <input role='submit-button' id='submit' type="submit" value="Submit" />
-      </form>
-      </>
+
     );
 }
 

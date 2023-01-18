@@ -23,7 +23,7 @@ header .container {
   justify-content: space-between;
 }
 h2 {
-  color: #333;
+  color: black;
   text-decoration: none;
   margin: 20px 20px;
   padding: 20px;
@@ -34,6 +34,18 @@ h2 {
   margin: 0 auto;
 }
 
+.title {
+  color: #1bab83;
+  text-shadow: #000 0.5px 0.5px 0.5px;
+}
+
+.content {
+  font-size: medium;
+  color: #1aac83;
+  font: bold;
+  display: flex;
+  justify-content: center;
+}
 /* posts */
 #root {
   display: flex;
@@ -140,6 +152,16 @@ button {
   margin-top: 40px;
 }
 
+/*login*/
+.content-login {
+  font-size: xx-large;
+  color: #1aac83;
+  font: bold;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin: 20px;
+}
 /* signupForm */
 .errorMessages {
   color: red;
