@@ -17,7 +17,7 @@ describe("Post", () => {
   it("renders a post with likes", () => {
     cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: ['user1', 'user2'], createdAt: "2023-01-13T10:01:40.382Z" }} />);
 
-    cy.get('[data-cy="post"]').should("contain.text", "heart_plus");
+    cy.get('[data-cy="post"]').should("contain.text", "heart_plus 2");
   });
 
   it("renders a delete button on post", () => {
