@@ -15,13 +15,19 @@ const PostForm = ({ setPosts, token, setToken }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("photo", photo);
+    formData.append("message", postContent);
+
+    console.log(photo);
+
     let response = await fetch("/posts", {
       method: "post",
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: postContent }),
+      body: formData,
     });
 
     let data = await response.json();
