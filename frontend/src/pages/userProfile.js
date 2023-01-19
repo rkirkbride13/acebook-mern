@@ -64,13 +64,27 @@ const UserProfile = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    fetch( '/users', {
+    console.log(user)
+
+    let response = await fetch( `/users/${user._id}`, {
       method: 'patch',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ description: description })
     })
+    
+    let data = await response.json()
+
+    if (response.status !== 201) {
+      console.log("description NOT added")
+
+    } else {
+      console.log("description added")
+      window.localStorage.setItem("token", data.token)
+      setToken(window.localStorage.getItem("token"))
+      setDescription("")}
   }
 
   const handleDescriptionChange = (event) => {
@@ -93,7 +107,7 @@ const UserProfile = ({ navigate }) => {
     <div>
       <h3> about you </h3>
         <div>
-          {description}
+          {user.description}
         </div>
       <form onSubmit={handleSubmit}>
       <textarea placeholder="About you: DOB, Occupation, Relationship Status, Hobbies..." id="description" type='text' value={ description } onChange={handleDescriptionChange} />
