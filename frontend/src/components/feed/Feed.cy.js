@@ -13,8 +13,8 @@ describe("Feed", () => {
           statusCode: 200,
           body: {
             posts: [
-              { _id: 1, message: "Hello, world", likes: [] },
-              { _id: 2, message: "Hello again, world", likes: [] },
+              { _id: 1, message: "Hello, world", likes: [], hearts: [], fires: [], angrys: [] },
+              { _id: 2, message: "Hello again, world", likes: [], hearts: [], fires: [], angrys: [] },
             ],
           },
         });
@@ -44,13 +44,19 @@ describe("Feed", () => {
                 _id: 1,
                 message: "Hello, world",
                 createdAt: "2017-02-14T12:51:48.000Z",
-                likes: []
+                likes: [], 
+                hearts: [], 
+                fires: [], 
+                angrys: []
               },
               {
                 _id: 2,
                 message: "Hello again, world",
                 createdAt: "2017-02-14T12:52:48.000Z",
-                likes: []
+                likes: [], 
+                hearts: [], 
+                fires: [], 
+                angrys: []
               },
             ],
           },
@@ -86,13 +92,19 @@ describe("Feed", () => {
                 _id: 1,
                 message: "Hello, world",
                 createdAt: "2017-02-14T12:51:48.000Z",
-                likes: []
+                likes: [], 
+                hearts: [], 
+                fires: [], 
+                angrys: []
               },
               {
                 _id: 2,
                 message: "Hello again, world",
                 createdAt: "2017-02-14T12:52:48.000Z",
-                likes: []
+                likes: [], 
+                hearts: [], 
+                fires: [], 
+                angrys: []
               },
             ],
           },
@@ -124,13 +136,19 @@ describe("Feed", () => {
               {
                 _id: 1,
                 message: "Hello, world",
-                likes: ['user1'],
+                likes: ['user1'], 
+                hearts: [], 
+                fires: [], 
+                angrys: [],
                 createdAt: "2017-02-14T12:51:48.000Z",
               },
               {
                 _id: 2,
                 message: "Hello again, world",
-                likes: ['user1', 'user2'],
+                likes: ['user1', 'user2'], 
+                hearts: [], 
+                fires: [], 
+                angrys: [],
                 createdAt: "2017-02-14T12:52:48.000Z",
               },
             ],

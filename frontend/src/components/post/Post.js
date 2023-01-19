@@ -4,6 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
+import Popup from "../likesPopup/LikesPopup"
 
 const Post = ({ post, token, setToken, post_id, setPosts }) => {
 
@@ -18,22 +19,28 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     setPosts: PropTypes.func,
   }
 
+  const totalLikes = obj => Object.values(obj).reduce((a,b) => a + b, 0);
+
   const [commentsView, setCommentsView] = useState(false)
   const [user, setUser] = useState({});
-  const [likes, setLikes] = useState(post.likes.length);
+  const [formattedLikes] = useState({likes: post.likes.length, hearts: post.hearts.length, fires: post.fires.length, angrys: post.angrys.length});
+  const [likes, setLikes] = useState(totalLikes(formattedLikes));
+  const[isOpen, setIsOpen] = useState(false);
   const user_id = window.localStorage.getItem('user_id')
-  
-  
+
   const showComments = () => {
     setCommentsView(!commentsView)    
+  }
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
   }
   
   const deleteButtonView = (post.user_id === user_id)
 
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
-  const isPostLiked = post.likes.includes(user_id);
-  const [liked, setLiked] = useState(isPostLiked);
-  const [formatPost, setFormatPost] = useState(true)
+  const [liked, setLiked] = useState((post.likes.includes(user_id) || post.hearts.includes(user_id) || post.fires.includes(user_id) || post.angrys.includes(user_id)));
+  const [formatPost, setFormatPost] = useState(true);
 
   useEffect(() => {
     if(token) {
@@ -52,11 +59,10 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     }
   }, []);
 
-  const likePost = async (e) => {
-    e.preventDefault();
+  const likePost = async (emoji) => {
 
     // A true/false toggle on whether the user has liked the post already
-    setLiked((state) => !state);
+    // setLiked((state) => !state);
 
     let response = await fetch(`/posts/${post._id}`, {
       method: 'PATCH',
@@ -64,7 +70,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({user_id: user_id, liked})
+      body: JSON.stringify({user_id: user_id, liked, emoji: emoji})
     })
 
     let data = await response.json()
@@ -90,7 +96,12 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
             setToken(window.localStorage.getItem("token"))
             data.posts.map((post) => {
               if (post._id === post_id) {
-                setLikes(post.likes.length)
+                setLiked((post.likes.includes(user_id) || post.hearts.includes(user_id) || post.fires.includes(user_id) || post.angrys.includes(user_id)))
+                formattedLikes.likes = post.likes.length;
+                formattedLikes.hearts = post.hearts.length;
+                formattedLikes.fires = post.fires.length;
+                formattedLikes.angrys = post.angrys.length;
+                setLikes(totalLikes(formattedLikes))
               }
             })
           }
@@ -184,7 +195,14 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
         <div className="postText">{`@${user.username}`}<br/></div>
         <div className="postContent">{postFormatter(post.message)}</div>
         <div className="likeButton">
-          <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
+          <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={() => likePost('like')}>heart_plus</span> 
+          <button id="likesPopupButton" onClick={togglePopup}>{likes}</button>
+          {isOpen && <Popup formattedLikes={formattedLikes} handleClose={togglePopup}/>}
+        </div>
+        <div className="reactButtons">
+        <button className="emoji-buttons" data-cy="heartButton" id="heartButton" onClick={() => likePost('heart')}>&#x1F49A;</button>
+        <button className="emoji-buttons" data-cy="fireButton" id="fireButton" onClick={() => likePost('fire')}>&#x1F525;</button>
+        <button className="emoji-buttons" data-cy="angryButton" id="angryButton" onClick={() => likePost('angry')}>&#x1F621;</button>
         </div>
         <div className="timestamp">{dateTimeAgo} </div>
         {deleteButtonView && <span

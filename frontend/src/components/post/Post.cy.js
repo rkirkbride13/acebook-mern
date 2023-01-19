@@ -4,20 +4,20 @@ const navigate = () => {};
 
 describe("Post", () => {
   it("renders a post with a message", () => {
-    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [] }} />);
+    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [], hearts: [], fires: [], angrys: [] }} />);
     cy.get('[data-cy="post"]').should("contain.text", "Hello, world");
   });
 
   it("renders a post with a time stamp", () => {
-    cy.mount(<Post post={{ _id: 1, message: "Hello, world", createdAt: "2023-01-13T10:01:40.382Z", likes: [] }} />);
+    cy.mount(<Post post={{ _id: 1, message: "Hello, world", createdAt: "2023-01-13T10:01:40.382Z", likes: [], hearts: [], fires: [], angrys: [] }} />);
 
     cy.get('[data-cy="post"]').should("contain.text", "ago");
   });
 
   it("renders a post with likes", () => {
-    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: ['user1', 'user2'], createdAt: "2023-01-13T10:01:40.382Z" }} />);
+    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: ['user1', 'user2'], createdAt: "2023-01-13T10:01:40.382Z", hearts: [], fires: [], angrys: [] }} />);
 
-    cy.get('[data-cy="post"]').should("contain.text", "heart_plus 2");
+    cy.get('[data-cy="post"]').should("contain.text", "heart_plus2");
   });
 
   it("renders a long post with a reveal more button", () => {
@@ -27,7 +27,7 @@ describe("Post", () => {
   });
 
   it("renders a delete button on post", () => {
-    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [], user_id: null }} />);
+    cy.mount(<Post post={{ _id: 1, message: "Hello, world", likes: [], user_id: null, hearts: [], fires: [], angrys: [] }} />);
     cy.get('[data-cy="deleteButton"]').should("contains.text", "delete");
   });
 
@@ -36,7 +36,7 @@ describe("Post", () => {
 
     cy.mount(
       <Post
-        post={{ _id: 1, message: "Hello, world", createdAt: "2023-01-13T10:01:40.382Z", likes: [], user_id: null }}
+        post={{ _id: 1, message: "Hello, world", createdAt: "2023-01-13T10:01:40.382Z", likes: [], user_id: null, hearts: [], fires: [], angrys: [] }}
         setToken={setTokenMock}
       />
     );

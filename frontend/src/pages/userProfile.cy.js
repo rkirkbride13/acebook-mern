@@ -30,7 +30,7 @@ describe("UserProfile", () => {
     cy.intercept('GET', '/posts/user', (req) => {
       req.reply({
         statusCode: 200,
-        body: { posts: [ {_id: 1, message: "hello", likes: [], user_id: 1}]
+        body: { posts: [ {_id: 1, message: "hello", likes: [], user_id: 1, hearts: [], fires: [], angrys: []}]
         }
       })
     }
