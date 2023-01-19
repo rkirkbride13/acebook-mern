@@ -48,7 +48,8 @@ const PostsController = {
     (req, res) => {
       const message = req.body.message;
 
-      console.log(req.body);
+      console.log(req.body.message);
+      console.log(req.body.photo);
       // const photo = req.file.filename;
       // console.log(req.file.filename);
 
