@@ -30,10 +30,9 @@ const UsersController = {
   Update: async (req, res) => {
     try { 
       await User.updateOne({_id: req.params.id},
-        { $addToSet: { description: req.body.description }})
+        { $set: { description: req.body.description }})
       const token = await TokenGenerator.jsonwebtoken(req.params.id);
-      console.log('hello')
-      res.status(200).json({ message: "OK", token: token})
+      res.status(201).json({ message: "OK", token: token})
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

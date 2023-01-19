@@ -64,10 +64,9 @@ const UserProfile = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(user)
-
-    let response = await fetch( `/users/${user._id}`, {
-      method: 'patch',
+    
+    let response = await fetch(`/users/${user._id}`, {
+      method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -84,7 +83,23 @@ const UserProfile = ({ navigate }) => {
       console.log("description added")
       window.localStorage.setItem("token", data.token)
       setToken(window.localStorage.getItem("token"))
-      setDescription("")}
+      setDescription("")
+
+      if (token) {
+        fetch("/users", {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'User_ID': `${id}`
+          }
+        })
+          .then((response) => response.json())
+          .then(async (data) => {
+            window.localStorage.setItem("token", data.token)
+            setToken(window.localStorage.getItem("token"))
+            setDescription(data.description);
+          })
+      }
+    }
   }
 
   const handleDescriptionChange = (event) => {
