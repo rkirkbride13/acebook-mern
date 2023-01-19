@@ -172,6 +172,17 @@ button {
   cursor: pointer;
 }
 
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: var(--primary);
+}
 /* comments */
 
 .commentButton {

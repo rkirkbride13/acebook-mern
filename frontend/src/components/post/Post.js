@@ -192,7 +192,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
-        <div className="postText">{`@${user.username}`}<br/></div>
+        <div className="postText"><a href={`/profile/${user._id}`}>{`@${user.username}`}</a><br/></div>
         <div className="postContent">{postFormatter(post.message)}</div>
         <div className="likeButton">
           <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={() => likePost('like')}>heart_plus</span> 

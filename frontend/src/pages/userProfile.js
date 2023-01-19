@@ -15,8 +15,9 @@ const UserProfile = ({ navigate }) => {
   const [posts, setPosts] = useState([])
   const [user, setUser] = useState({});
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const current_user_id = window.localStorage.getItem('user_id')
   const { id } = useParams();
-
+  
   useEffect(() => {
     if(token) {
       fetch("/users", {
@@ -59,6 +60,8 @@ const UserProfile = ({ navigate }) => {
   const feed = () => {
     navigate('/posts')
   }
+
+  const personal = current_user_id === user._id ? `Your` : `${user.username}'s`
   
   return (
     <>
@@ -75,7 +78,7 @@ const UserProfile = ({ navigate }) => {
     </div>
     
     <div className="center">
-      <h3> your posts </h3>
+      <h3> {`${personal} posts`} </h3>
     </div>
     <div data-cy="post">
           {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
