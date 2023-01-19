@@ -17,7 +17,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
 
     let formData = new FormData();
     formData.append("photo", photo);
-    formData.append("message", JSON.stringify(postContent));
+    formData.append("message", postContent);
 
     console.log(formData.get("photo"));
     console.log(formData.get("message"));
@@ -25,7 +25,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
     let response = await fetch("/posts", {
       method: "post",
       headers: {
-        // // Accept: "application/json",
+        Accept: "application/json",
         // "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },

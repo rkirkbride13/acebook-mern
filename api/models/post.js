@@ -13,7 +13,7 @@ const PostSchema = new mongoose.Schema(
   {
     message: { type: String },
     likes: { type: Array, default: [] },
-    photo: { type: FileSchema },
+    photo: { type: Object },
   },
   { timestamps: true }
 );

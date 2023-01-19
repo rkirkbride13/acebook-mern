@@ -10,7 +10,7 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 
 //Import BodyParser to convert JSON body and FormData body
-const bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 
 //import FormData Express package
 const formData = require("express-form-data");
@@ -29,17 +29,17 @@ const commentsRouter = require("./routes/comments");
 
 const app = express();
 
-// parse data with connect-multiparty. 
-app.use(formData.parse(options));
-// delete from the request all empty files (size == 0)
-app.use(formData.format());
-// change the file objects to fs.ReadStream 
-app.use(formData.stream());
-// union the body and the files
-app.use(formData.union());
+// // parse data with connect-multiparty. 
+// app.use(formData.parse(options));
+// // delete from the request all empty files (size == 0)
+// app.use(formData.format());
+// // change the file objects to fs.ReadStream 
+// app.use(formData.stream());
+// // union the body and the files
+// app.use(formData.union());
 
 // setup for receiving JSON
-app.use(express.json());
+// app.use(express.json());
 
 // Call express to use BodyParser
 // app.use(BodyParser.json());
@@ -50,10 +50,15 @@ const jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 app.use(logger("dev"));
 // app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'))
+// app.use('/static', express.static('../public/images'));
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {

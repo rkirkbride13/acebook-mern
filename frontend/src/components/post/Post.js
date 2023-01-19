@@ -41,6 +41,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     })
 
     let data = await response.json()
+    
   
     if (response.status !== 200) {
       console.log("likes not updated")
@@ -108,11 +109,12 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       }
     }
   };
-  
+  console.log(post.photo)
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
+        {post.photo !== undefined && <img src={`http://localhost:8080/images/${post.photo}`} alt={"image"}/>}
         <div className="postText">{post.message} </div>
         <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
         <div className="timestamp">{dateTimeAgo} </div>
