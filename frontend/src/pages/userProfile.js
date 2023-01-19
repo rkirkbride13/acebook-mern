@@ -116,18 +116,23 @@ const UserProfile = ({ navigate }) => {
         <button onClick={logout}>Logout</button>
       </div>
     </nav> 
+    <div className="profilecontainer">
+    <div className='profilecontent'>
     <div className="img" > 
       <img src={dp1} alt="dp1" /> 
     </div>
-    <div>
+    <div className="aboutyou">
       <h3> about you </h3>
         <div>
           {user.description}
         </div>
-      <form onSubmit={handleSubmit}>
-      <textarea placeholder="About you: DOB, Occupation, Relationship Status, Hobbies..." id="description" type='text' value={ description } onChange={handleDescriptionChange} />
-      <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Submit</button>
+      <div className='aboutyouform'>
+        <form onSubmit={handleSubmit}>
+        <textarea placeholder="About you: DOB, Occupation, Relationship Status, Hobbies..." id="description" type='text' value={ description } onChange={handleDescriptionChange} />
+        <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Submit</button>
       </form>
+      </div>
+    </div>
     </div>
     <div className="center">
       <h3> your posts </h3>
@@ -135,6 +140,7 @@ const UserProfile = ({ navigate }) => {
     
     <div data-cy="post">
         {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+    </div>
     </div>
     </>
   );
