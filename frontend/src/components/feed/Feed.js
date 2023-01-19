@@ -57,7 +57,7 @@ const Feed = ({ navigate }) => {
   if (token) {
     return (
       <>
-        <nav id="nav"> 
+        <nav className="navbar" id="nav"> 
         <h1>AceBook</h1>      
         <h2>Posts</h2>
         <div>

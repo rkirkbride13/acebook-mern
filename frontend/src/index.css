@@ -35,13 +35,13 @@ h2 {
 }
 
 .title {
-  color: #1bab83;
+  color: var(--primary);
   text-shadow: #000 0.5px 0.5px 0.5px;
 }
 
 .content {
   font-size: medium;
-  color: #1aac83;
+  color: var(--primary);
   font: bold;
   display: flex;
   justify-content: center;
@@ -49,6 +49,9 @@ h2 {
 
 .welcome {
   text-align: center;
+  margin-top: 150px;
+  color: var(--primary);
+  font-size: 1.5em;
 }
 /* posts */
 #root {
@@ -64,6 +67,7 @@ h2 {
   border-radius: 10px;
   margin: 20px 60px;
   padding: 20px;
+  width: 50%;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
   flex-direction: column;
@@ -133,6 +137,7 @@ button {
 .messageContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .postText {
@@ -168,7 +173,7 @@ button {
 /*login*/
 .content-login {
   font-size: xx-large;
-  color: #1aac83;
+  color: var(--primary);
   font: bold;
   display: flex;
   justify-content: center;

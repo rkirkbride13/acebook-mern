@@ -169,7 +169,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       const formattedPost = postToFormat.slice(0, 100);
       return (
         <>
-          {formatPost ? formattedPost + '...' : postToFormat}
+          {formatPost ? formattedPost + '...' : postToFormat}<br/>
           {revealButton}
         </>
       )
@@ -181,10 +181,8 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
-        <div className="postText">
-          {`@${user.username}`}<br/>
-          {postFormatter(post.message)}
-        </div>
+        <div className="postText">{`@${user.username}`}<br/></div>
+        <div className="postContent">{postFormatter(post.message)}</div>
         <div className="likeButton">
           <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={likePost}>heart_plus</span> {likes}
         </div>
