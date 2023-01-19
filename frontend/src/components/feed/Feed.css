@@ -1,9 +1,17 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  z-index: 999;
+  height: 120px;
+}
+
 #nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #1aac83;
-    color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1aac83;
+  color: #fff;
     
 }
 
