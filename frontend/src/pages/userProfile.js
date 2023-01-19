@@ -14,6 +14,7 @@ const UserProfile = ({ navigate }) => {
 
   const [posts, setPosts] = useState([])
   const [user, setUser] = useState({});
+  const [description, setDescription] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const { id } = useParams();
 
@@ -59,6 +60,22 @@ const UserProfile = ({ navigate }) => {
   const feed = () => {
     navigate('/posts')
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    fetch( '/users', {
+      method: 'patch',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description: description })
+    })
+  }
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value)
+  }
   
   return (
     <>
@@ -73,19 +90,23 @@ const UserProfile = ({ navigate }) => {
     <div className="img" > 
       <img src={dp1} alt="dp1" /> 
     </div>
-    
+    <div>
+      <h3> about you </h3>
+        <div>
+          {description}
+        </div>
+      <form onSubmit={handleSubmit}>
+      <textarea placeholder="About you: DOB, Occupation, Relationship Status, Hobbies..." id="description" type='text' value={ description } onChange={handleDescriptionChange} />
+      <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Submit</button>
+      </form>
+    </div>
     <div className="center">
       <h3> your posts </h3>
     </div>
+    
     <div data-cy="post">
-          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+        {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
     </div>
-
-   
-    
-    
-    
-    
     </>
   );
 
