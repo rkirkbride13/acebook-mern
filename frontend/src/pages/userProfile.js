@@ -61,7 +61,9 @@ const UserProfile = ({ navigate }) => {
     navigate('/posts')
   }
 
-  const personal = current_user_id === user._id ? `Your` : `${user.username}'s`
+  const personalProfile = current_user_id === user._id
+
+  const personal = personalProfile ? `Your` : `${user.username}'s`
   
   return (
     <>
