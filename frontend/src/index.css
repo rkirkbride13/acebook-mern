@@ -100,10 +100,28 @@ h2 {
   max-height: 60px;
 }
 
+.emoji-buttons {
+  margin: 0px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 5.5px 10px;
+  border-radius: 50%;
+  font-size: medium;
+}
+
+.reactButtons {
+
+}
 .timestamp {
   margin: 0;
   font-size: 0.9em;
   color: #555;
+}
+#likesPopupButton {
+  background: none;
+  color: black;
+  cursor: pointer;
+  font-size: inherit;
 }
 
 button {
@@ -163,6 +181,46 @@ button {
 
 #commentContent {
   margin-top: 40px;
+}
+
+/* Likes Popup style */
+.popup-box {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+ 
+.box {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+ 
+.close-icon {
+  content: 'x' !important;
+  cursor: pointer !important; 
+  position: fixed !important;
+  right: calc(15% - 30px) !important;
+  top: calc(100vh - 85vh - 33px) !important;
+  background: var(--primary) !important;
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50% !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  color: white !important;
 }
 
 /*login*/
