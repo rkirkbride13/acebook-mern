@@ -40,6 +40,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
 
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
   const [liked, setLiked] = useState((post.likes.includes(user_id) || post.hearts.includes(user_id) || post.fires.includes(user_id) || post.angrys.includes(user_id)));
+  const [formatPost, setFormatPost] = useState(true);
 
   useEffect(() => {
     if(token) {
@@ -164,13 +165,35 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
         }
       ]
     })
-  };
+  }
+
+  const postFormatter = (postToFormat) => {
+
+    if (postToFormat.length > 100) {
+      const revealButton = (
+        <>
+        <button className="revealButton" onClick={() => setFormatPost((state) => !state)}>
+          {formatPost ? "(show me more!)" : "(hide the rest)"}
+        </button>
+        </>
+      )
+      const formattedPost = postToFormat.slice(0, 100);
+      return (
+        <>
+          {formatPost ? formattedPost + '...' : postToFormat}<br/>
+          {revealButton}
+        </>
+      )
+    }
+    return postToFormat
+  }
   
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
       <div className="messageContent">
-        <div className="postText">{`@${user.username}: ${post.message}`} </div>
+        <div className="postText">{`@${user.username}`}<br/></div>
+        <div className="postContent">{postFormatter(post.message)}</div>
         <div className="likeButton">
           <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={() => likePost('like')}>heart_plus</span> 
           <button id="likesPopupButton" onClick={togglePopup}>{likes}</button>
