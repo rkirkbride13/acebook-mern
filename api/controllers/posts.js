@@ -47,13 +47,19 @@ const PostsController = {
     (upload.single("photo"),
     (req, res) => {
       const message = req.body.message;
+      const photo = req.file.filename;
 
-      console.log(req.body.message);
-      console.log(req.body.photo);
+      const postObject = {
+        message,
+        photo,
+      }
+
+      console.log(req);
+      console.log(req.body);
       // const photo = req.file.filename;
       // console.log(req.file.filename);
 
-      const post = new Post(message);
+      const post = new Post(postObject);
       // console.log(typeof post, post);
       post.save(async (err) => {
         if (err) {
@@ -64,6 +70,27 @@ const PostsController = {
         res.status(201).json({ message: "OK", token: token });
       });
     }),
+
+    // Create:(req, res) => {
+    //   const message = req.body.message;
+
+    //   // console.log(req);
+    //   // console.log(req.body.message);
+    //   console.log(req.files);
+    //   // const photo = req.file.filename;
+    //   // console.log(req.file.filename);
+
+    //   const post = new Post(message);
+    //   // console.log(typeof post, post);
+    //   post.save(async (err) => {
+    //     if (err) {
+    //       throw err;
+    //     }
+
+    //     const token = await TokenGenerator.jsonwebtoken(req.user_id);
+    //     res.status(201).json({ message: "OK", token: token });
+    //   });
+    // },
 
   PostLikes: (req, res) => {
     Post.updateOne(
