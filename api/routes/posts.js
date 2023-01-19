@@ -1,15 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-//Import BodyParser to convert JSON body and FormData body
-const bodyParser = require('body-parser');
-
-
-const jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
 
 // Import middleware Multer for uploading pictures
 const multer = require("multer");

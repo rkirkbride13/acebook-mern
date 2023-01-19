@@ -29,36 +29,15 @@ const commentsRouter = require("./routes/comments");
 
 const app = express();
 
-// // parse data with connect-multiparty. 
-// app.use(formData.parse(options));
-// // delete from the request all empty files (size == 0)
-// app.use(formData.format());
-// // change the file objects to fs.ReadStream 
-// app.use(formData.stream());
-// // union the body and the files
-// app.use(formData.union());
-
-// setup for receiving JSON
-// app.use(express.json());
-
-// Call express to use BodyParser
-// app.use(BodyParser.json());
-// app.use(BodyParser.urlencoded({extended: false}));
-
-const jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
 app.use(logger("dev"));
-// app.use(express.json());
-// app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.static('public'))
-// app.use('/static', express.static('../public/images'));
+
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {
@@ -80,26 +59,7 @@ const tokenChecker = (req, res, next) => {
   });
 };
 
-// middleware function to save photo and provide file name
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "images");
-  },
-  filename: function (req, file, cb) {
-    cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const filefilter = (req, file, cb) => {
-  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-let upload = multer({ storage, filefilter });
 
 // route setup
 app.use("/posts", tokenChecker, postsRouter);

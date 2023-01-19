@@ -109,7 +109,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       }
     }
   };
-  console.log(post.photo)
+  
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">

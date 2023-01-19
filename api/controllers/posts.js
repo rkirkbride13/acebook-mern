@@ -5,30 +5,8 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const path = require('path')
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "images/");
-  
-  },  
-  
-  filename: function (req, file, cb) {
-    cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
-  },
-  
-});
 
-const filefilter = (req, file, cb) => {
-  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-  console.log("File filter running")
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-let upload = multer({ storage, filefilter });
 
-// const upload = multer({ dest: '../images/' })
 
 const PostsController = {
   Index: (req, res) => {
@@ -50,35 +28,7 @@ const PostsController = {
         res.status(400).json({ error });
       });
   },
-  // Create:
-  //   (upload.single("photo"),
-  //   (req, res) => {
-  //     console.log(req.files)
-  //     const message = req.body.message;
-  //     const photo = req.body.photo.path;
-
-  //     const postObject = {
-  //       message,
-  //       photo,
-  //     }
-
-  //     // console.log(req);
-  //     // console.log(req.body);
-  //     // const photo = req.file.filename;
-  //     // console.log(req.file.filename);
-
-  //     const post = new Post(postObject);
-  //     // console.log(typeof post, post);
-  //     post.save(async (err) => {
-  //       if (err) {
-  //         throw err;
-  //       }
-
-  //       const token = await TokenGenerator.jsonwebtoken(req.user_id);
-  //       res.status(201).json({ message: "OK", token: token });
-  //     });
-  //   }),
-
+  
     Create:(req, res) => {
       console.log(req.files, req.file)
       
@@ -90,14 +40,9 @@ const PostsController = {
         photo,
       }
 
-      // console.log(req);
-      // console.log(req.body.message);
-      console.log(req.files);
-      // const photo = req.file.filename;
-      // console.log(req.file.filename);
 
       const post = new Post(postObject);
-      // console.log(typeof post, post);
+      
       post.save(async (err) => {
         if (err) {
           throw err;
