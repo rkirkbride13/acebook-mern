@@ -68,7 +68,7 @@ const Feed = ({ navigate }) => {
         <div className="welcome">Welcome {user.username}!</div>
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
         <div data-cy="feed" id="feed" role="feed">
-          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts} profile={false}/>).reverse()}
         </div>
       </>
     );

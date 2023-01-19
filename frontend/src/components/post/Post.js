@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
 import Popup from "../likesPopup/LikesPopup"
 
-const Post = ({ post, token, setToken, post_id, setPosts }) => {
+const Post = ({ post, token, setToken, post_id, setPosts , profile}) => {
 
   Post.propTypes = {
     token: PropTypes.string,
@@ -17,6 +17,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
     _id: PropTypes.string,
     message: PropTypes.string,
     setPosts: PropTypes.func,
+    profile: PropTypes.bool,
   }
 
   const totalLikes = obj => Object.values(obj).reduce((a,b) => a + b, 0);
@@ -41,6 +42,7 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
   const dateTimeAgo = moment(new Date(post.createdAt)).fromNow();
   const [liked, setLiked] = useState((post.likes.includes(user_id) || post.hearts.includes(user_id) || post.fires.includes(user_id) || post.angrys.includes(user_id)));
   const [formatPost, setFormatPost] = useState(true);
+  const path = profile ? '/user' : '/';
 
   useEffect(() => {
     if(token) {
@@ -132,9 +134,10 @@ const Post = ({ post, token, setToken, post_id, setPosts }) => {
       // State passed from feed used to update all posts on Feed.js
       // This refreshes post list after deletion
       if (token) {
-        fetch("/posts", {
+        fetch(`/posts${path}`, {
           headers: {
             Authorization: `Bearer ${token}`,
+            User_ID: user_id
           },
         })
           .then((response) => response.json())

@@ -69,7 +69,7 @@ const UserProfile = ({ navigate }) => {
     <>
     <nav id="nav"> 
       <h1>Acebook</h1>      
-      <h2 data-cy="user">{user.username}&apos;s profile!</h2>
+      <h2 data-cy="user">{`${personal} profile!`}</h2>
       <div>
         <button onClick={feed}>Feed</button>
         <button onClick={logout}>Logout</button>
@@ -83,7 +83,7 @@ const UserProfile = ({ navigate }) => {
       <h3> {`${personal} posts`} </h3>
     </div>
     <div data-cy="post">
-          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts} profile ={true}/>).reverse()}
     </div>
 
    
