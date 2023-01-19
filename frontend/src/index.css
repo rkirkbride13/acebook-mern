@@ -65,7 +65,7 @@ h2 {
   display: flex;
   background: #fff;
   border-radius: 10px;
-  margin: 20px 60px;
+  margin: 20px auto;
   padding: 20px;
   width: 50%;
   position: relative;
@@ -111,7 +111,7 @@ h2 {
   margin: 0px;
   cursor: pointer;
   background: #f1f1f1;
-  padding: 5.5px 10px;
+  padding: 2.25px 5px;
   border-radius: 50%;
   font-size: medium;
 }
@@ -170,6 +170,16 @@ button {
   border-radius: 5px;
   font-size: 12px;
   cursor: pointer;
+}
+
+.revealLikes {
+  display: none;
+}
+
+.reactButtons:hover + .revealLikes {
+  display: block;
+  color: black;
+  z-index: 999;
 }
 
 /* comments */
