@@ -17,7 +17,12 @@ const PostForm = ({ setPosts, token, setToken }) => {
     e.preventDefault();
 
     let formData = new FormData();
-    formData.append("photo", photo);
+
+    console.log(photo);
+    if (photo !== "") {
+      formData.append("photo", photo);
+    }
+
     formData.append("message", postContent);
     formData.append("user_id", user_id);
 
@@ -43,6 +48,8 @@ const PostForm = ({ setPosts, token, setToken }) => {
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
       setPostContent("");
+      setPhoto("");
+      e.target["photo"].value = [];
 
       // State passed from feed used to update all posts on Feed.js
       if (token) {
@@ -68,7 +75,6 @@ const PostForm = ({ setPosts, token, setToken }) => {
   //handler function to add Photo
   const handlePhotoChange = (e) => {
     setPhoto(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   return (

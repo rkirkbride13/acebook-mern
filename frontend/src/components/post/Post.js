@@ -208,7 +208,7 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
         <div className="messageContent">
-          {post.photo !== undefined && (
+          {post.photo !== "" && (
             <img
               src={`http://localhost:8080/images/${post.photo}`}
               alt={"image"}

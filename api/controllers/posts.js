@@ -23,11 +23,13 @@ const PostsController = {
   },
 
   Create: (req, res) => {
-    console.log(req.files, req.file);
-
     const message = req.body.message;
     const user_id = req.body.user_id;
-    const photo = req.file.filename;
+    let photo = "";
+
+    if (req.file !== undefined) {
+      photo = req.file.filename;
+    }
 
     const postObject = {
       message,
