@@ -59,7 +59,7 @@ const LogInForm = ({ navigate }) => {
         <div className='content-login'>
           Login
         </div>
-        <div className='errorMessages'>
+        <div className='errorMessageLogin'>
         {UserDoesntExsistsErrorMessage && (<p className="error"> {UserDoesntExsistsErrorMessage} </p>)}
               {EmptyFieldErrorMessage && (<p className="error"> {EmptyFieldErrorMessage} </p>)}
         </div>
