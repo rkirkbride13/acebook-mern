@@ -48,6 +48,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
       setPostContent("");
+      setPhoto("");
 
       // State passed from feed used to update all posts on Feed.js
       if (token) {
