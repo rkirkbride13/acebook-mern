@@ -17,7 +17,12 @@ const PostForm = ({ setPosts, token, setToken }) => {
     e.preventDefault();
 
     let formData = new FormData();
-    formData.append("photo", photo);
+
+    console.log(photo);
+    if (photo !== "") {
+      formData.append("photo", photo);
+    }
+
     formData.append("message", postContent);
     formData.append("user_id", user_id);
 
