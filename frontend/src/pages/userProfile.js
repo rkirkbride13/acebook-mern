@@ -16,8 +16,9 @@ const UserProfile = ({ navigate }) => {
   const [user, setUser] = useState({});
   const [description, setDescription] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const current_user_id = window.localStorage.getItem('user_id')
   const { id } = useParams();
-
+  
   useEffect(() => {
     if(token) {
       fetch("/users", {
@@ -105,12 +106,15 @@ const UserProfile = ({ navigate }) => {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value)
   }
+  const personalProfile = current_user_id === user._id
+
+  const personal = personalProfile ? `Your` : `${user.username}'s`
   
   return (
     <>
     <nav id="nav"> 
       <h1>Acebook</h1>      
-      <h2 data-cy="user">{user.username}&apos;s profile!</h2>
+      <h2 data-cy="user">{`${personal} profile!`}</h2>
       <div>
         <button onClick={feed}>Feed</button>
         <button onClick={logout}>Logout</button>
@@ -134,13 +138,13 @@ const UserProfile = ({ navigate }) => {
       </div>
     </div>
     </div>
+    </div>
     <div className="center">
-      <h3> your posts </h3>
+      <h3> {`${personal} posts`} </h3>
     </div>
     
     <div data-cy="post">
-        {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
-    </div>
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts} profile ={true}/>).reverse()}
     </div>
     </>
   );

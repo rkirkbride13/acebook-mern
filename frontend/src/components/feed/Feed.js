@@ -12,6 +12,7 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const user_id = window.localStorage.getItem('user_id')
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (token) {
@@ -29,6 +30,21 @@ const Feed = ({ navigate }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if(token) {
+      fetch("/users", {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'User_ID': `${user_id}`
+        }
+      })
+        .then(response => response.json())
+        .then(async data => {
+          setUser(data.user);
+        })
+    }
+  }, []);
+
   const logout = () => {
     window.localStorage.removeItem("token");
     navigate("/login");
@@ -41,19 +57,19 @@ const Feed = ({ navigate }) => {
   if (token) {
     return (
       <>
-        <nav id="nav"> 
+        <nav className="navbar" id="nav"> 
         <h1>AceBook</h1>      
         <h2>Posts</h2>
         <div>
         <button onClick={profilePage}>Profile</button>
         <button onClick={logout}>Logout</button>
         </div>
-        </nav> 
+        </nav>
+        <div className="welcome">Welcome {user.username}!</div>
         <PostForm setPosts={setPosts} token={token} setToken={setToken} />
         <div data-cy="feed" id="feed" role="feed">
-          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts}/>).reverse()}
+          {posts.map((post) => <Post post={post} token={token} setToken={setToken} key={post._id} post_id={post._id} setPosts={setPosts} profile={false}/>).reverse()}
         </div>
-        
       </>
     );
   } else {

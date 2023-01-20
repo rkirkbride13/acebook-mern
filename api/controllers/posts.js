@@ -36,11 +36,41 @@ const PostsController = {
   Update: async (req, res) => {
     try {
       if (!req.body.liked) {
-        await Post.updateOne({_id: req.params.id}, 
-          { $addToSet: { likes: req.body.user_id } })
+        switch (req.body.emoji) {
+          case 'like':
+            await Post.updateOne({_id: req.params.id}, 
+            { $addToSet: { likes: req.body.user_id } });
+            break;
+          case 'heart':
+            await Post.updateOne({_id: req.params.id}, 
+            { $addToSet: { hearts: req.body.user_id } });
+            break;
+          case 'fire':
+            await Post.updateOne({_id: req.params.id}, 
+            { $addToSet: { fires: req.body.user_id } });
+            break;
+          case 'angry':
+            await Post.updateOne({_id: req.params.id}, 
+            { $addToSet: { angrys: req.body.user_id } });
+        }
       } else {
-        await Post.updateOne({_id: req.params.id}, 
-          { $pull: { likes: req.body.user_id } })
+        switch (req.body.emoji) {
+          case 'like':
+            await Post.updateOne({_id: req.params.id}, 
+            { $pull: { likes: req.body.user_id } });
+            break;
+          case 'heart':
+            await Post.updateOne({_id: req.params.id}, 
+            { $pull: { hearts: req.body.user_id } });
+            break;
+          case 'fire':
+            await Post.updateOne({_id: req.params.id}, 
+            { $pull: { fires: req.body.user_id } });
+            break;
+          case 'angry':
+            await Post.updateOne({_id: req.params.id}, 
+            { $pull: { angrys: req.body.user_id } });
+        }
       }
       const token = await TokenGenerator.jsonwebtoken(req.body.user_id);
       res.status(200).json({ message: "OK", token: token})
