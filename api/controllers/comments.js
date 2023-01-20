@@ -3,7 +3,7 @@ const TokenGenerator = require("../models/token_generator");
 
 const CommentsController = {
   Index: (req, res) => {
-    Comment.find({post_id: req.get("post_id")}, async (err, comments) => {
+    Comment.find({ post_id: req.get("post_id") }, async (err, comments) => {
       if (err) {
         throw err;
       }
@@ -12,11 +12,11 @@ const CommentsController = {
     });
   },
   Create: (req, res) => {
-    console.log(req.user_id)
-    const {text, post_id} = req.body
-    const user_id = req.user_id
+    console.log(req.user_id);
+    const { text, post_id } = req.body;
+    const user_id = req.user_id;
 
-    const comment = new Comment({text, user_id, post_id });
+    const comment = new Comment({ text, user_id, post_id });
     comment.save(async (err) => {
       if (err) {
         throw err;
