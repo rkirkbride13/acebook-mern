@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments"
-import Popup from "../likesPopup/LikesPopup"
+// import Popup from "../likesPopup/LikesPopup"
 
 const Post = ({ post, token, setToken, post_id, setPosts , profile}) => {
 
@@ -26,16 +26,16 @@ const Post = ({ post, token, setToken, post_id, setPosts , profile}) => {
   const [user, setUser] = useState({});
   const [formattedLikes] = useState({likes: post.likes.length, hearts: post.hearts.length, fires: post.fires.length, angrys: post.angrys.length});
   const [likes, setLikes] = useState(totalLikes(formattedLikes));
-  const[isOpen, setIsOpen] = useState(false);
+  // const[isOpen, setIsOpen] = useState(false);
   const user_id = window.localStorage.getItem('user_id')
 
   const showComments = () => {
     setCommentsView(!commentsView)    
   }
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  }
+  // const togglePopup = () => {
+  //   setIsOpen(!isOpen);
+  // }
   
   const deleteButtonView = (post.user_id === user_id)
 
@@ -197,15 +197,20 @@ const Post = ({ post, token, setToken, post_id, setPosts , profile}) => {
       <div className="messageContent">
         <div className="postText"><a href={`/profile/${user._id}`}>{`@${user.username}`}</a><br/></div>
         <div className="postContent">{postFormatter(post.message)}</div>
-        <div className="likeButton">
-          <span className="material-symbols-outlined" data-cy="likeButton" id="likeButton" onClick={() => likePost('like')}>heart_plus</span> 
-          <button id="likesPopupButton" onClick={togglePopup}>{likes}</button>
+        {/* <div className="likeButton">
+          <button id="likesPopupButton" onClick={togglePopup}></button>
           {isOpen && <Popup formattedLikes={formattedLikes} handleClose={togglePopup}/>}
-        </div>
+        </div> */}
         <div className="reactButtons">
-        <button className="emoji-buttons" data-cy="heartButton" id="heartButton" onClick={() => likePost('heart')}>&#x1F49A;</button>
-        <button className="emoji-buttons" data-cy="fireButton" id="fireButton" onClick={() => likePost('fire')}>&#x1F525;</button>
-        <button className="emoji-buttons" data-cy="angryButton" id="angryButton" onClick={() => likePost('angry')}>&#x1F621;</button>
+          {likes}
+          <button className="emoji-buttons" data-cy="heartButton" id="heartButton" onClick={() => likePost('heart')}>&#x1F49A;</button>
+          <button className="emoji-buttons" data-cy="fireButton" id="fireButton" onClick={() => likePost('fire')}>&#x1F525;</button>
+          <button className="emoji-buttons" data-cy="angryButton" id="angryButton" onClick={() => likePost('angry')}>&#x1F621;</button>
+        </div>
+        <div className="revealLikes">
+          &#x1F49A;: {formattedLikes.hearts}
+          &#x1F525;: {formattedLikes.fires}
+          &#x1F621;: {formattedLikes.angrys}
         </div>
         <div className="timestamp">{dateTimeAgo} </div>
         {deleteButtonView && <span
