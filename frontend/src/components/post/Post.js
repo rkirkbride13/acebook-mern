@@ -213,7 +213,7 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
             <strong><a href={`/profile/${user._id}`}>{`@${user.username}`}</a></strong>
             <br />
           </div>
-          {post.photo !== undefined && (
+          {post.photo !== "" && (
             <img className="postimg"
               src={`http://localhost:8080/images/${post.photo}`}
               alt={"image"}

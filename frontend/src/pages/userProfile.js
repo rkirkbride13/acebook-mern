@@ -4,7 +4,7 @@ import Post from "../components/post/Post";
 import './user.css'
 import PropTypes from 'prop-types'
 
-const dp1 = require('./images/dp1.jpeg') // adds image
+const image = require('./images/image.png') // adds image
 
 const UserProfile = ({ navigate }) => {
 
@@ -97,7 +97,7 @@ const UserProfile = ({ navigate }) => {
           .then(async (data) => {
             window.localStorage.setItem("token", data.token)
             setToken(window.localStorage.getItem("token"))
-            setDescription(data.description);
+            setUser(data.user);
           })
       }
     }
@@ -106,15 +106,17 @@ const UserProfile = ({ navigate }) => {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value)
   }
-  const personalProfile = current_user_id === user._id
 
-  const personal = personalProfile ? `Your` : `${user.username}'s`
+  const personalProfile = current_user_id === user._id
+  const personalApos = personalProfile ? `Your` : `${user.username}'s`
+  const personal = personalProfile ? `you` : `${user.username}`
+
   
   return (
     <>
     <nav id="nav"> 
       <h1>acebook</h1>      
-      <h2 data-cy="user">{`${personal} profile!`}</h2>
+      <h2 data-cy="user">{`${personalApos} profile!`}</h2>
       <div>
         <button onClick={feed}>Feed</button>
         <button onClick={logout}>Logout</button>
@@ -123,24 +125,24 @@ const UserProfile = ({ navigate }) => {
     <div className="profilecontainer">
     <div className='profilecontent'>
     <div className="img" > 
-      <img src={dp1} alt="dp1" /> 
+      <img src={image} alt="dp1" /> 
     </div>
     <div className="aboutyou">
-      <h3> about you </h3>
+      <h3> {`about ${personal}`} </h3>
         <div>
           {user.description}
         </div>
-      <div className='aboutyouform'>
+      { personalProfile && <div className='aboutyouform'>
         <form onSubmit={handleSubmit}>
         <textarea placeholder="About you: DOB, Occupation, Relationship Status, Hobbies..." id="description" type='text' value={ description } onChange={handleDescriptionChange} />
         <button data-cy="submitButton" id="submitButton" type="submit" value="Submit">Submit</button>
       </form>
-      </div>
+      </div> }
     </div>
     </div>
     </div>
     <div className="center">
-      <h3> {`${personal} posts`} </h3>
+      <h3> {`${personalApos} posts`} </h3>
     </div>
     
     <div data-cy="post">
