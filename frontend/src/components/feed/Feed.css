@@ -22,3 +22,8 @@
 #nav, button {
     border: solid 1px #fff;
 }
+
+.postimg {
+  width: 100%;
+  height: auto;
+}
