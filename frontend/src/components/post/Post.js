@@ -207,17 +207,19 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
+        
         <div className="messageContent">
+          <div className="postText">
+            <strong><a href={`/profile/${user._id}`}>{`@${user.username}`}</a></strong>
+            <br />
+          </div>
           {post.photo !== undefined && (
-            <img
+            <img className="postimg"
               src={`http://localhost:8080/images/${post.photo}`}
               alt={"image"}
             />
           )}
-          <div className="postText">
-            <a href={`/profile/${user._id}`}>{`@${user.username}`}</a>
-            <br />
-          </div>
+          
           <div className="postContent">{postFormatter(post.message)}</div>
           <div className="reactButtons">
             {likes}

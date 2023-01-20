@@ -113,7 +113,7 @@ const UserProfile = ({ navigate }) => {
   return (
     <>
     <nav id="nav"> 
-      <h1>Acebook</h1>      
+      <h1>acebook</h1>      
       <h2 data-cy="user">{`${personal} profile!`}</h2>
       <div>
         <button onClick={feed}>Feed</button>
