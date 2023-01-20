@@ -1,26 +1,10 @@
 const createError = require("http-errors");
 const express = require("express");
-const path = require("path");
 const logger = require("morgan");
 const JWT = require("jsonwebtoken");
-const os = require("os");
-
-// Import middleware Multer for uploading pictures
-const multer = require("multer");
-const { v4: uuidv4 } = require("uuid");
 
 //Import BodyParser to convert JSON body and FormData body
-let bodyParser = require('body-parser');
-
-//import FormData Express package
-const formData = require("express-form-data");
-
-const options = {
-  uploadDir: os.tmpdir(),
-  autoClean: true
-};
-
-
+let bodyParser = require("body-parser");
 
 const postsRouter = require("./routes/posts");
 const tokensRouter = require("./routes/tokens");
@@ -29,15 +13,12 @@ const commentsRouter = require("./routes/comments");
 
 const app = express();
 
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(logger("dev"));
 
-app.use(express.static('public'))
-
+app.use(express.static("public"));
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {
@@ -58,8 +39,6 @@ const tokenChecker = (req, res, next) => {
     }
   });
 };
-
-
 
 // route setup
 app.use("/posts", tokenChecker, postsRouter);

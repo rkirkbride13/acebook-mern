@@ -1,14 +1,5 @@
 const mongoose = require("mongoose");
 
-const FileSchema = new mongoose.Schema({
-  _id: { type: Number, default: 1 },
-  lastModified: { type: Number },
-  lastModifiedDate: { type: Date },
-  name: { type: String },
-  size: { type: Number },
-  type: { type: String },
-});
-
 const PostSchema = new mongoose.Schema(
   {
     message: { type: String },

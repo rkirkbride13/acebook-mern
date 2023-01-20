@@ -1,12 +1,5 @@
 const Post = require("../models/post");
 const TokenGenerator = require("../models/token_generator");
-// Import middleware Multer for uploading pictures
-const multer = require("multer");
-const { v4: uuidv4 } = require("uuid");
-const path = require('path')
-
-
-
 
 const PostsController = {
   Index: (req, res) => {
@@ -28,30 +21,29 @@ const PostsController = {
         res.status(400).json({ error });
       });
   },
-  
-    Create:(req, res) => {
-      console.log(req.files, req.file)
-      
-      const message = req.body.message;
-      const photo = req.file.filename;
 
-      const postObject = {
-        message,
-        photo,
+  Create: (req, res) => {
+    console.log(req.files, req.file);
+
+    const message = req.body.message;
+    const photo = req.file.filename;
+
+    const postObject = {
+      message,
+      photo,
+    };
+
+    const post = new Post(postObject);
+
+    post.save(async (err) => {
+      if (err) {
+        throw err;
       }
 
-
-      const post = new Post(postObject);
-      
-      post.save(async (err) => {
-        if (err) {
-          throw err;
-        }
-
-        const token = await TokenGenerator.jsonwebtoken(req.user_id);
-        res.status(201).json({ message: "OK", token: token });
-      });
-    },
+      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+      res.status(201).json({ message: "OK", token: token });
+    });
+  },
 
   PostLikes: (req, res) => {
     Post.updateOne(
