@@ -172,6 +172,7 @@ button {
   cursor: pointer;
 }
 
+
 .revealLikes {
   display: none;
 }
@@ -180,6 +181,19 @@ button {
   display: block;
   color: black;
   z-index: 999;
+}
+
+
+a:link {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: var(--primary);
 }
 
 /* comments */
