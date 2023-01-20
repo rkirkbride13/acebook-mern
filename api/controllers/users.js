@@ -25,6 +25,17 @@ const UsersController = {
     } catch (error) {
       res.status(400).json({error: error.message})
     }
+  },
+
+  Update: async (req, res) => {
+    try { 
+      await User.updateOne({_id: req.params.id},
+        { $set: { description: req.body.description }})
+      const token = await TokenGenerator.jsonwebtoken(req.params.id);
+      res.status(201).json({ message: "OK", token: token})
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
 };
 
