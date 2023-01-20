@@ -5,6 +5,10 @@ const PostSchema = new mongoose.Schema(
     message: { type: String },
     likes: { type: Array, default: [] },
     photo: { type: Object },
+    hearts: { type: Array, default: [] },
+    fires: { type: Array, default: [] },
+    angrys: { type: Array, default: [] },
+    user_id: { type: String },
   },
   { timestamps: true }
 );

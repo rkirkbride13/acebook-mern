@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   username: { type: String, required: true, unique: true },
+  description: { type: String },
 });
 
 UserSchema.statics.signup = async function(email, password, username) {
@@ -12,8 +13,9 @@ UserSchema.statics.signup = async function(email, password, username) {
   const usernameExists = await this.findOne({username})
 
   if (exists) {
+    
     throw Error('Email already in use')
-  } 
+  }
   else if (usernameExists) {
     throw Error('Username already in use')
   }

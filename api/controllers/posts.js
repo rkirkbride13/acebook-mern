@@ -26,10 +26,12 @@ const PostsController = {
     console.log(req.files, req.file);
 
     const message = req.body.message;
+    const user_id = req.body.user_id;
     const photo = req.file.filename;
 
     const postObject = {
       message,
+      user_id,
       photo,
     };
 
@@ -39,21 +41,72 @@ const PostsController = {
       if (err) {
         throw err;
       }
-
+      // console.log(req.user_id)
       const token = await TokenGenerator.jsonwebtoken(req.user_id);
       res.status(201).json({ message: "OK", token: token });
     });
   },
 
-  PostLikes: (req, res) => {
-    Post.updateOne(
-      { _id: req.params.id },
-      { $addToSet: { likes: req.body.user_id } }
-    )
-      .then(() => res.status(200).json({ message: "OK" }))
-      .catch((error) => {
-        res.status(400).json({ error });
-      });
+  Update: async (req, res) => {
+    try {
+      if (!req.body.liked) {
+        switch (req.body.emoji) {
+          case "like":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $addToSet: { likes: req.body.user_id } }
+            );
+            break;
+          case "heart":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $addToSet: { hearts: req.body.user_id } }
+            );
+            break;
+          case "fire":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $addToSet: { fires: req.body.user_id } }
+            );
+            break;
+          case "angry":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $addToSet: { angrys: req.body.user_id } }
+            );
+        }
+      } else {
+        switch (req.body.emoji) {
+          case "like":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $pull: { likes: req.body.user_id } }
+            );
+            break;
+          case "heart":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $pull: { hearts: req.body.user_id } }
+            );
+            break;
+          case "fire":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $pull: { fires: req.body.user_id } }
+            );
+            break;
+          case "angry":
+            await Post.updateOne(
+              { _id: req.params.id },
+              { $pull: { angrys: req.body.user_id } }
+            );
+        }
+      }
+      const token = await TokenGenerator.jsonwebtoken(req.body.user_id);
+      res.status(200).json({ message: "OK", token: token });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   },
   Delete: async (req, res) => {
     try {
@@ -64,6 +117,15 @@ const PostsController = {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
+  },
+  FindByUser: (req, res) => {
+    Post.find({ user_id: req.get("User_ID") }, async (err, posts) => {
+      if (err) {
+        throw err;
+      }
+      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+      res.status(200).json({ posts: posts, token: token });
+    });
   },
 };
 

@@ -11,6 +11,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
 
   const [postContent, setPostContent] = useState("");
   const [photo, setPhoto] = useState("");
+  const user_id = window.localStorage.getItem("user_id");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const PostForm = ({ setPosts, token, setToken }) => {
     let formData = new FormData();
     formData.append("photo", photo);
     formData.append("message", postContent);
+    formData.append("user_id", user_id);
 
     console.log(formData.get("photo"));
     console.log(formData.get("message"));
