@@ -14,6 +14,7 @@ In this project, our seven person group was tasked with working on an existing a
 
 ## Screenshots
 
+<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/signup.png" alt="signup" hspace="50" height="38" width="38">
 
 
 ## Video runthrough
