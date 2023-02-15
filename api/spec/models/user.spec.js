@@ -27,14 +27,14 @@ describe("User model", () => {
     });
     expect(user.password).toEqual("password");
   });
-  
+
   it("has a username", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
       username: "username",
     });
-    expect(user.username).toEqual("username")
+    expect(user.username).toEqual("username");
   });
 
   it("can list all users", (done) => {
@@ -50,7 +50,7 @@ describe("User model", () => {
       email: "someone@example.com",
       password: "password",
       username: "username",
-      description: "21 yo working in tech"
+      description: "21 yo working in tech",
     });
 
     user.save((err) => {
@@ -63,7 +63,7 @@ describe("User model", () => {
           email: "someone@example.com",
           password: "password",
           username: "username",
-          description: "21 yo working in tech"
+          description: "21 yo working in tech",
         });
         done();
       });

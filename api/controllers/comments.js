@@ -12,7 +12,6 @@ const CommentsController = {
     });
   },
   Create: (req, res) => {
-    console.log(req.user_id);
     const { text, post_id } = req.body;
     const user_id = req.user_id;
 

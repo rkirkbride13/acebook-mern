@@ -38,7 +38,6 @@ router.get("/user", PostsController.FindByUser);
 router.get("/:id", PostsController.Find);
 router.post("/", upload.single("photo"), PostsController.Create);
 router.patch("/:id", PostsController.Update);
-// DELETE a post
 router.delete("/", PostsController.Delete);
 
 module.exports = router;

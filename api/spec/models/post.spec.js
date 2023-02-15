@@ -21,8 +21,7 @@ describe("Post model", () => {
       expect(posts).toEqual([]);
       done();
     });
-  })
-  ;
+  });
 
   it("can save a post", (done) => {
     var post = new Post({ message: "some message" });
@@ -41,14 +40,12 @@ describe("Post model", () => {
 
   it("can save a post with the time", (done) => {
     var post = new Post({ message: "some message" });
-    console.log(post);
 
     post.save((err) => {
       expect(err).toBeNull();
 
       Post.find((err, posts) => {
         expect(err).toBeNull();
-        console.log(posts[0]);
 
         expect(posts[0]).toMatchObject({ message: "some message" });
         expect(posts[0].createdAt).not.toEqual(undefined);
