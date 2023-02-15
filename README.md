@@ -23,7 +23,7 @@ In this project, our seven person group was tasked with working on an existing a
   <tr>
     <td><img src="screenshots/signup.png" width=270></td>
     <td><img src="screenshots/login.png" width=270></td>
-    <td><img src="screenshots/feed.png" width=270></td>
+    <td><img src="screenshots/feed.png" width=400></td>
   </tr>
  </table>
 
