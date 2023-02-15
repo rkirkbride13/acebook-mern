@@ -29,8 +29,7 @@ In this project, our seven person group was tasked with working on an existing a
 
 ## Video runthrough
 
-<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/acebook_runthrough.mov" alt="signup">
-
+https://user-images.githubusercontent.com/113419992/219073395-5846e59c-eae8-44f2-b978-70d2548f2d51.mp4
 
 ## Technologies
 
