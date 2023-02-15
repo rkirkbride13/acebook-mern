@@ -57,30 +57,30 @@ The React front end sends HTTP requests to the backend API.
 
 1. Clone this repository
 2. Install Node.js dependencies for both frontend and backend directories
-   ```
-   ; cd api
-   ; npm install
-   ; cd ../frontend
-   ; npm install
-   ```
+```
+; cd api
+; npm install
+; cd ../frontend
+; npm install
+```
 3. Install MongoDB
-   ```
-   brew tap mongodb/brew
-   brew install mongodb-community@5.0
-   ```
+```
+brew tap mongodb/brew
+brew install mongodb-community@5.0
+```
 4. Start MongoDB
-   ```
-   brew services start mongodb-community@5.0
-   ```
+```
+brew services start mongodb-community@5.0
+```
 
 ### Running the project
 
 1. Start the server in one terminal
 
-   ```
-   ; cd api
-   ; JWT_SECRET=SUPER_SECRET npm start
-   ```
+```
+; cd api
+; JWT_SECRET=SUPER_SECRET npm start
+```
 
 2. Start the front end in another terminal
 
