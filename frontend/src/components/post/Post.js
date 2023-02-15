@@ -4,7 +4,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Comments from "../comment/Comments";
-// import Popup from "../likesPopup/LikesPopup"
 
 const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
   Post.propTypes = {
@@ -30,16 +29,11 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
     angrys: post.angrys.length,
   });
   const [likes, setLikes] = useState(totalLikes(formattedLikes));
-  // const[isOpen, setIsOpen] = useState(false);
   const user_id = window.localStorage.getItem("user_id");
 
   const showComments = () => {
     setCommentsView(!commentsView);
   };
-
-  // const togglePopup = () => {
-  //   setIsOpen(!isOpen);
-  // }
 
   const deleteButtonView = post.user_id === user_id;
 
@@ -71,9 +65,6 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
   }, []);
 
   const likePost = async (emoji) => {
-    // A true/false toggle on whether the user has liked the post already
-    // setLiked((state) => !state);
-
     let response = await fetch(`/posts/${post._id}`, {
       method: "PATCH",
       headers: {
@@ -174,7 +165,6 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
         },
         {
           label: "No",
-          // onClick: () => alert('Click No')
         },
       ],
     });
@@ -207,19 +197,21 @@ const Post = ({ post, token, setToken, post_id, setPosts, profile }) => {
   return (
     <article data-cy="post" key={post._id} className="post">
       <div className="messageContainer">
-        
         <div className="messageContent">
           <div className="postText">
-            <strong><a href={`/profile/${user._id}`}>{`@${user.username}`}</a></strong>
+            <strong>
+              <a href={`/profile/${user._id}`}>{`@${user.username}`}</a>
+            </strong>
             <br />
           </div>
           {post.photo !== "" && (
-            <img className="postimg"
+            <img
+              className="postimg"
               src={`http://localhost:8080/images/${post.photo}`}
               alt={"image"}
             />
           )}
-          
+
           <div className="postContent">{postFormatter(post.message)}</div>
           <div className="reactButtons">
             {likes}

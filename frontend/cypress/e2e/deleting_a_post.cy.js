@@ -1,7 +1,7 @@
 describe("Deleting post", () => {
   before(() => {
-    cy.signup("user@email.com", "12345678", "username");
-    cy.login("user@email.com", "12345678");
+    cy.signup("user100@email.com", "12345678", "user100");
+    cy.login("user100@email.com", "12345678");
   });
 
   it("when a post is deleted, page is refreshed to see it removed", () => {

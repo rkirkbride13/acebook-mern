@@ -1,7 +1,7 @@
 describe("Signing up", () => {
-  xit("with valid credentials, redirects to '/login'", () => {
+  it("with valid credentials, redirects to '/login'", () => {
     cy.visit("/signup");
-    cy.get("#email").type("someone1@example.com");
+    cy.get("#email").type("user600@email.com");
     cy.get("#password").type("password");
     cy.get("#username").type("username1");
     cy.get("#submit").click();
@@ -11,7 +11,7 @@ describe("Signing up", () => {
 
   it("with missing password, redirects to '/signup'", () => {
     cy.visit("/signup");
-    cy.get("#email").type("someone@example.com");
+    cy.get("#email").type("user600@email.com");
     cy.get("#username").type("username");
     cy.get("#submit").click();
 
@@ -29,7 +29,7 @@ describe("Signing up", () => {
 
   it("with missing username, redirects to '/signup'", () => {
     cy.visit("/signup");
-    cy.get("#email").type("email@test.com");
+    cy.get("#email").type("user600@email.com");
     cy.get("#password").type("password");
     cy.get("#submit").click();
 

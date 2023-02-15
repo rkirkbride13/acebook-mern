@@ -18,7 +18,6 @@ const PostForm = ({ setPosts, token, setToken }) => {
 
     let formData = new FormData();
 
-    console.log(photo);
     if (photo !== "") {
       formData.append("photo", photo);
     }
@@ -26,14 +25,10 @@ const PostForm = ({ setPosts, token, setToken }) => {
     formData.append("message", postContent);
     formData.append("user_id", user_id);
 
-    console.log(formData.get("photo"));
-    console.log(formData.get("message"));
-
     let response = await fetch("/posts", {
       method: "post",
       headers: {
         Accept: "application/json",
-        // "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
       body: formData,
