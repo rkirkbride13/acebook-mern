@@ -14,9 +14,18 @@ In this project, our seven person group was tasked with working on an existing a
 
 ## Screenshots
 
-<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/signup.png" >
-<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/login.png" >
-<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/feed.png" >
+<table>
+  <tr>
+    <td>Sign up form</td>
+     <td>Login page</td>
+     <td>Feed</td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/signup.png" width=270></td>
+    <td><img src="screenshots/login.png" width=270></td>
+    <td><img src="screenshots/feed.png" width=270></td>
+  </tr>
+ </table>
 
 ## Video runthrough
 
