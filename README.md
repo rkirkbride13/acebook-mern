@@ -15,10 +15,12 @@ In this project, our seven person group was tasked with working on an existing a
 ## Screenshots
 
 <img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/signup.png" alt="signup">
-
+<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/login.png" alt="signup">
+<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/feed.png" alt="signup">
 
 ## Video runthrough
 
+<img src="https://github.com/rkirkbride13/acebook-mern/blob/main/screenshots/acebook_runthrough.mov" alt="signup">
 
 
 ## Technologies
