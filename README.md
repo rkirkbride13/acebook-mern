@@ -5,9 +5,9 @@ In this project, our seven person group was tasked with working on an existing a
 ## Contents
 
 [Screenshots](#Screenshots)
-[Video runthrough](#Video runthrough)
+[Video runthrough](#Video-runthrough)
 [Technologies](#Technologies)
-[Trying the project](#Trying the project)
+[Trying the project](#Trying-the-project)
 
 ## Screenshots
 
